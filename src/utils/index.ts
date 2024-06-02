@@ -42,5 +42,5 @@ export function formatCurrency( amount: number, currencySettings?: ICurrencySett
         ...currencySettings
     };
 
-    return amount.toLocaleString(currencySettings.locale, {style:"currency", currency:currencySettings.currency});
+    return amount.toLocaleString(currencySettings.locale, {style:"currency", currency:currencySettings.currency, maximumFractionDigits: 0});
 }

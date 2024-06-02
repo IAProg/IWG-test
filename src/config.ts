@@ -37,13 +37,27 @@ export const gameConfig = {
             { x: +400,   y: 150 }
         ] as Array<Point>
     },
+    symbol:{
+        glowPos:{
+            x: 0,
+            y: -25
+        },
+        prizeValueStyle: {
+            fontName: "skranji-white-export",
+            align: "center"
+        } as Partial<IBitmapTextStyle>,
+        prizevaluePos: {
+            x: 0,
+            y: -50
+        }
+    },
     cabinet: {
         size: {
             width: 500,
             height: 842
         },
         showHideTweenProps: {
-            duration: 2
+            duration: 1
         },
         plusButton:{
             pos: {
