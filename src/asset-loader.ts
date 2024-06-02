@@ -4,7 +4,6 @@ import { IAssetDefinition } from "./types";
 const assetManifest = [
     { name: "background", url: "textures/background.png"},
     { name: "logo", url: "textures/logo.png"},
-    { name: "pointer", url: "textures/pointer.png"},
 
     { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
     { name: "language", url: "spritesheets/language.json"},

@@ -12,6 +12,12 @@ export const gameConfig = {
         autoDensity: true,
         resolution: 2
 
-    } as IApplicationOptions
+    } as IApplicationOptions,
+    gameboard:{
+        padding: 1.00,
+        textPos:     { x: 0.00, y: -475.00 },
+        discPos:     { x: 0.00, y:   25.00 },
+        selectorPos: { x: 0.00, y:  300.00 }
+    },
 }
 
