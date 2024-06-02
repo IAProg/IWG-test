@@ -22,6 +22,14 @@ class PlayerState {
         return this._stakes[this._stakeIndex];
     }
 
+    public get isMaxStake(): boolean{
+        return this._stakeIndex === this._stakes.length - 1;
+    }
+
+    public get isMinStake(): boolean{
+        return this._stakeIndex === 0;
+    }
+
 
 }
 
