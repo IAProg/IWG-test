@@ -7,11 +7,12 @@ import { IButtonTextureConfig } from "./types";
  */
 export const gameConfig = {
     canvas:{
-        width: 2040,
-        height: 1280,
+        width: 1020,
+        height: 640,
         antialiasing: true,
         autoDensity: true,
-        resolution: 2
+        resolution: 2,
+        resizeTo: window
 
     } as IApplicationOptions,
     gameboard:{

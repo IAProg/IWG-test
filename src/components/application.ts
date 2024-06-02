@@ -24,7 +24,11 @@ export class IWGApp extends Application {
 
         this.stage.addChild(this._background, this._gameBoard, this._foreground, this._cabinet);
 
-        this.scaleContent(gameConfig.canvas.width, gameConfig.canvas.height);
+        window.addEventListener("resize", () => {
+            this.scaleContent(this.screen.width, this.screen.height);
+        });
+
+        this.scaleContent(this.screen.width, this.screen.height);
     }
 
     public async playIntro(): Promise<void>{
