@@ -1,10 +1,10 @@
 import { Container, Sprite } from "pixi.js";
 import { gameConfig } from "../../config";
-import { ticketModel } from "../../ticket-model";
 import { asyncTween, delay } from "../../utils";
 import { getTexture } from "../../asset-loader";
 import { GameSymbol } from "./symbol";
 import { ISizeRef } from "../../types";
+import gsap from "gsap";
 
 
 /**
@@ -13,6 +13,7 @@ import { ISizeRef } from "../../types";
 export class Gameboard extends Container {
 
     private _backdrop: Sprite;
+    private _waterRipple: Sprite;
     private _logo: Sprite;
 
     private _symbols: Array<GameSymbol>;
@@ -22,22 +23,30 @@ export class Gameboard extends Container {
     constructor(){
         super();
 
-        const { logoPos, symbolPositions, padding } = gameConfig.gameboard;
+        const { logoPos, symbolPositions, padding, ripple } = gameConfig.gameboard;
+
+        this._waterRipple = new Sprite(getTexture("waterRipple.png"));
+        this._waterRipple.anchor.set(0.5);
+        this._waterRipple.position.copyFrom(ripple.pos);
+        const rippleTL = gsap.timeline({ repeat: -1 });
+        rippleTL.add(gsap.fromTo(this._waterRipple.scale, ripple.scaleFrom, ripple.scaleTo), 0);
+        rippleTL.add(gsap.fromTo(this._waterRipple, ripple.alphaFrom, ripple.alphaTo), 3);
+
 
         this._backdrop = new Sprite(getTexture("islandMiddle.png"));
         this._backdrop.anchor.set(0.5);
         
         this._logo = new Sprite(getTexture("logo.png"));
         this._logo.anchor.set(0.5);
-        this._logo.position.set(logoPos.x, logoPos.y);
+        this._logo.position.copyFrom(logoPos);
 
         this._symbols = symbolPositions.map( ( pos ) => new GameSymbol( pos ));
 
-        this.addChild(this._backdrop, this._logo, ...this._symbols);
+        this.addChild(this._waterRipple, this._backdrop, this._logo, ...this._symbols);
 
         this.size = {
-            width:  padding * this.width,
-            height: padding * this.height
+            width:  padding * this._backdrop.width,
+            height: padding * this._backdrop.height
         }
 
         this.alpha = 1;

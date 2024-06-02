@@ -16,7 +16,14 @@ export const gameConfig = {
     } as IApplicationOptions,
     gameboard:{
         padding: 1.00,
-        logoPos: { x: 0, y: -150 },
+        logoPos: { x: 0, y: -175 },
+        ripple: {
+            pos: { x: 0, y: 130 },
+            scaleFrom: { x: 0.8, y: 0.8 },
+            scaleTo: { x: 1.5, y: 1.5, duration: 4 },
+            alphaFrom: { alpha: 1 },
+            alphaTo: { alpha: 0, duration: 1 },
+        },
         symbolPositions: [
             { x: -375,   y: 0   },
             { x: -175,   y: 0   },
@@ -74,6 +81,10 @@ export const gameConfig = {
         topPanelY: -365,
         botPanelY: 175,
         setBetY: -180
+    },
+    foreground: {
+        treeSpacing: 800,
+        treeTween: { rotation: +0.05, repeat: -1, yoyo: true, duration: 5, ease: "power1.inOut" }
     }
 }
 

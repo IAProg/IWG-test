@@ -3,6 +3,7 @@ import { gameConfig } from "../config";
 import { Background } from "./background";
 import { Gameboard } from "./game-board";
 import { Cabinet } from "./cabinet";
+import { Foreground } from "./foreground";
 
 /**
  * The core of the application. 
@@ -11,15 +12,17 @@ import { Cabinet } from "./cabinet";
 export class IWGApp extends Application {
     private _background: Background;
     private _gameBoard: Gameboard;
+    private _foreground: Foreground;
     private _cabinet: Cabinet;
 
     constructor(){
         super(gameConfig.canvas)
         this._background = new Background();
         this._gameBoard = new Gameboard();
+        this._foreground = new Foreground();
         this._cabinet = new Cabinet( this.play.bind(this) );
 
-        this.stage.addChild(this._background, this._gameBoard, this._cabinet);
+        this.stage.addChild(this._background, this._gameBoard, this._foreground, this._cabinet);
 
         this.scaleContent(gameConfig.canvas.width, gameConfig.canvas.height);
     }
@@ -34,6 +37,7 @@ export class IWGApp extends Application {
     public scaleContent(width: number, height: number): void{
         this._background.resize(width, height);
         this._gameBoard.resize(width, height);
+        this._foreground.resize(width, height);
         this._cabinet.resize(width, height);
     }
 
