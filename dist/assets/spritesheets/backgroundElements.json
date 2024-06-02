@@ -1,0 +1,60 @@
+{"frames": {
+
+"bushesL.png":
+{
+	"frame": {"x":1656,"y":436,"w":380,"h":325},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":380,"h":325},
+	"sourceSize": {"w":380,"h":325}
+},
+"bushesR.png":
+{
+	"frame": {"x":1656,"y":763,"w":375,"h":327},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":375,"h":327},
+	"sourceSize": {"w":375,"h":327}
+},
+"islandForeground.png":
+{
+	"frame": {"x":1,"y":1,"w":2040,"h":433},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":2040,"h":433},
+	"sourceSize": {"w":2040,"h":433}
+},
+"islandMiddle.png":
+{
+	"frame": {"x":1,"y":1396,"w":1246,"h":580},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1246,"h":580},
+	"sourceSize": {"w":1246,"h":580}
+},
+"palmL.png":
+{
+	"frame": {"x":830,"y":436,"w":824,"h":954},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":824,"h":954},
+	"sourceSize": {"w":824,"h":954}
+},
+"palmR.png":
+{
+	"frame": {"x":1,"y":436,"w":827,"h":958},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":827,"h":958},
+	"sourceSize": {"w":827,"h":959}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "backgroundElements.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ee1c51bf09da4fbc98f55181e37caa8f:922f13b9ce4a4446683e73b739275f46:1d1c85b114163e194a40ba3a884067fd$"
+}
+}

@@ -1,0 +1,92 @@
+{"frames": {
+
+"changeBetButton.png":
+{
+	"frame": {"x":1,"y":435,"w":229,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":71},
+	"sourceSize": {"w":229,"h":71}
+},
+"chooseBet.png":
+{
+	"frame": {"x":541,"y":223,"w":360,"h":133},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":360,"h":133},
+	"sourceSize": {"w":360,"h":133}
+},
+"instructionGame01.png":
+{
+	"frame": {"x":694,"y":1,"w":1214,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1214,"h":53},
+	"sourceSize": {"w":1214,"h":53}
+},
+"logo.png":
+{
+	"frame": {"x":541,"y":56,"w":358,"h":165},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":358,"h":165},
+	"sourceSize": {"w":358,"h":165}
+},
+"loseMessage.png":
+{
+	"frame": {"x":1,"y":1,"w":538,"h":215},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":538,"h":215},
+	"sourceSize": {"w":538,"h":215}
+},
+"playAgainButton.png":
+{
+	"frame": {"x":232,"y":435,"w":229,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":71},
+	"sourceSize": {"w":229,"h":71}
+},
+"playButton.png":
+{
+	"frame": {"x":463,"y":435,"w":229,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":71},
+	"sourceSize": {"w":229,"h":71}
+},
+"revealAllButton.png":
+{
+	"frame": {"x":541,"y":358,"w":229,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":71},
+	"sourceSize": {"w":229,"h":71}
+},
+"winMessage.png":
+{
+	"frame": {"x":1,"y":218,"w":538,"h":215},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":538,"h":215},
+	"sourceSize": {"w":538,"h":215}
+},
+"winUpTo.png":
+{
+	"frame": {"x":694,"y":431,"w":271,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":271,"h":56},
+	"sourceSize": {"w":271,"h":56}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "language.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e0940ff67609fa0bb097856f319533fb:0dd844bdd5596798a141e7db0387fa35:50f5532447158093ee1651371df54ad2$"
+}
+}
