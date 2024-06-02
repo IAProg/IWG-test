@@ -1,0 +1,18 @@
+{
+	"gameId": "castaway-cash",
+	"currency":"USD",
+	"stakes": [0.5,1,2,5,10],
+	"prizeTable": [1, 2, 6, 8, 12, 20, 30, 50, 100, 1000, 5000, 100000],
+	"scenarioData": [
+		{
+			"winner": true,
+			"prizeIndexes": [0, 1, 0, 2, 3, 0, 4, 5, 5],
+			"winningIndexes": [0, 2, 5]
+		},
+		{
+			"winner": false,
+			"prizeIndexes": [8, 1, 8, 2, 3, 0, 4, 7, 5],
+			"winningIndexes": []
+		}
+	]
+}
