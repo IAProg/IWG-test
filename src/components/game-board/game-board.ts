@@ -3,6 +3,7 @@ import { gameConfig } from "../../config";
 import { ticketModel } from "../../ticket-model";
 import { asyncTween, delay } from "../../utils";
 import { getTexture } from "../../asset-loader";
+import { GameSymbol } from "./symbol";
 
 
 /**
@@ -11,6 +12,9 @@ import { getTexture } from "../../asset-loader";
 export class Gameboard extends Container {
 
     private _backdrop: Sprite;
+    private _logo: Sprite;
+
+    private _symbols: Array<GameSymbol>;
 
     private size: {
         width: number,
@@ -20,12 +24,18 @@ export class Gameboard extends Container {
     constructor(){
         super();
 
+        const { logoPos, symbolPositions, padding } = gameConfig.gameboard;
+
         this._backdrop = new Sprite(getTexture("islandMiddle.png"));
         this._backdrop.anchor.set(0.5);
+        
+        this._logo = new Sprite(getTexture("logo.png"));
+        this._logo.anchor.set(0.5);
+        this._logo.position.set(logoPos.x, logoPos.y);
 
-        const { selectorPos, textPos, discPos, padding } = gameConfig.gameboard;
+        this._symbols = symbolPositions.map( ( pos ) => new GameSymbol( pos ));
 
-        this.addChild(this._backdrop);
+        this.addChild(this._backdrop, this._logo, ...this._symbols);
 
         this.size = {
             width:  padding * this.width,

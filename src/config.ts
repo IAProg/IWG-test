@@ -1,4 +1,4 @@
-import { IApplicationOptions } from "pixi.js";
+import { IApplicationOptions, Point } from "pixi.js";
 
 /**
  * A game config allows for components of the game to be fine tuned from a single location with no changes need in the code structure
@@ -15,9 +15,18 @@ export const gameConfig = {
     } as IApplicationOptions,
     gameboard:{
         padding: 1.00,
-        textPos:     { x: 0.00, y: -475.00 },
-        discPos:     { x: 0.00, y:   25.00 },
-        selectorPos: { x: 0.00, y:  300.00 }
+        logoPos: { x: 0, y: -150 },
+        symbolPositions: [
+            { x: -375,   y: 0   },
+            { x: -175,   y: 0   },
+            { x: +10,    y: 0   },
+            { x: +200,   y: 0   },
+            { x: -375,   y: 150 },
+            { x: -175,   y: 150 },
+            { x: +10,    y: 150 },
+            { x: +200,   y: 150 },
+            { x: +400,   y: 150 }
+        ] as Array<Point>
     },
 }
 
