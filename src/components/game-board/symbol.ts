@@ -4,6 +4,7 @@ import { ticketModel } from "../../ticket-model";
 import { asyncTween, delay } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
 import gsap from "gsap";
+import { ISizeRef } from "../../types";
 
 
 /**
@@ -14,10 +15,7 @@ export class GameSymbol extends Container {
     private _chestAnim: AnimatedSprite;
     private _glow: Sprite;
 
-    private size: {
-        width: number,
-        height: number
-    };
+    private size: ISizeRef;
     
     constructor( pos: Point ){
         super();

@@ -4,6 +4,7 @@ import { ticketModel } from "../../ticket-model";
 import { asyncTween, delay } from "../../utils";
 import { getTexture } from "../../asset-loader";
 import { GameSymbol } from "./symbol";
+import { ISizeRef } from "../../types";
 
 
 /**
@@ -16,10 +17,7 @@ export class Gameboard extends Container {
 
     private _symbols: Array<GameSymbol>;
 
-    private size: {
-        width: number,
-        height: number
-    };
+    private size: ISizeRef;
     
     constructor(){
         super();
