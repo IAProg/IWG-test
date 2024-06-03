@@ -33,6 +33,7 @@ export interface ITicketResponse{
     gameId: string,
 	currency: string,
     localle: string,
+    maxWin: number,
 	stakes: Array<number>,
 	prizeTable: Array<number>,
 	scenarioData: Array<IScenarioData>
