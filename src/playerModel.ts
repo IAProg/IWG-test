@@ -1,4 +1,4 @@
-import { ICurrencySettings, ITicketResponse } from "./types";
+import { ICurrencySettings, IPlayerRequestPayload, ITicketResponse } from "./types";
 
 class PlayerModel {
     private _stakeIndex: number = 0; 
@@ -19,6 +19,12 @@ class PlayerModel {
 
     public decrementStake(): void{
         this._stakeIndex = Math.max( this._stakeIndex - 1, 0 );
+    }
+
+    public get requestPayload(): IPlayerRequestPayload{
+        return {
+            stake: this.currentStake
+        } as IPlayerRequestPayload
     }
 
     public get currencySettings(): ICurrencySettings{
