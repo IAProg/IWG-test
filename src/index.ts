@@ -1,5 +1,5 @@
 import { loadAssets } from "./asset-loader";
-import { IWGApp } from "./components/application";
+import { IWGApp } from "./application";
 import { playerModel } from "./playerModel";
 import { recoverTicketData } from "./requests";
 import { ticketModel } from "./ticket-model";

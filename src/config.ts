@@ -1,9 +1,8 @@
-import { IApplicationOptions, IBitmapTextStyle, ITextStyle, Point } from "pixi.js";
+import { IApplicationOptions, IBitmapTextStyle, Point } from "pixi.js";
 import { IButtonTextureConfig } from "./types";
 
 /**
  * A game config allows for components of the game to be fine tuned from a single location with no changes need in the code structure
- * An attempt has been made throughout the code to emulate how I think components are positioned at Roxor.
  */
 export const gameConfig = {
     canvas:{

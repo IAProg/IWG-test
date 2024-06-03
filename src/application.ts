@@ -1,15 +1,16 @@
 import { Application } from "pixi.js";
-import { gameConfig } from "../config";
-import { Background } from "./background";
-import { Gameboard } from "./game-board";
-import { Cabinet } from "./cabinet";
-import { Foreground } from "./foreground";
-import { requestTicketData } from "../requests";
-import { ticketModel } from "../ticket-model";
-import { delay } from "../utils";
-import { RevealAll } from "./reveal-all";
-import { EndCard, PlayerChoice } from "./end-card";
-import { playerModel } from "../playerModel";
+import { gameConfig } from "./config";
+import { Background } from "./components/background";
+import { Gameboard } from "./components/game-board";
+import { Foreground } from "./components/foreground";
+import { requestTicketData } from "./requests";
+import { ticketModel } from "./ticket-model";
+import { delay } from "./utils";
+import { EndCard, PlayerChoice } from "./components/end-card";
+import { playerModel } from "./playerModel";
+import { Cabinet } from "./components/cabinet";
+import { RevealAll } from "./components/reveal-all";
+
 
 /**
  * The core of the application. 

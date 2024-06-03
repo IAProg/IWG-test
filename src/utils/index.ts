@@ -14,14 +14,27 @@ export async function asyncTween (targets: gsap.TweenTarget, vars: gsap.TweenVar
     });
 }
 
+/**
+ * promise timeout wrapper function
+ */
 export const delay = (ms: number) => new Promise<void>(
     (resolve) => setTimeout(resolve, ms)
 );
 
+/**
+ * generate a random float between two values
+ * @param min - lowest possible value
+ * @param max - highest possible value
+ */
 export function randomFloat(min: number, max: number): number {
     return (Math.random() * (max - min)) + min;
 }
 
+/**
+ * generate a random integer between two values
+ * @param min - lowest possible value
+ * @param max - highest possible value
+ */
 export function randomInt(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max);

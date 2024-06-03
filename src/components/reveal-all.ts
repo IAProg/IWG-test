@@ -1,4 +1,4 @@
-import { Container, IPointData, Point, Sprite, Texture } from "pixi.js";
+import { Container, IPointData, Point, Sprite } from "pixi.js";
 import { ISizeRef } from "../types";
 import { getTexture } from "../asset-loader";
 import { sound } from "@pixi/sound";

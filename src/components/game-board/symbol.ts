@@ -1,4 +1,4 @@
-import { AnimatedSprite, BitmapText, Container, Point, Sprite, TextStyle, Texture } from "pixi.js";
+import { AnimatedSprite, BitmapText, Container, Sprite, Texture } from "pixi.js";
 import { gameConfig } from "../../config";
 import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
