@@ -1,19 +1,22 @@
 import { Loader, Texture } from "pixi.js";
 import { IAssetDefinition } from "./types";
+import { sound } from "@pixi/sound";
 
 const assetManifest = [
-    { name: "background", url: "textures/background.png"},
-    { name: "logo", url: "textures/logo.png"},
+   { name: "background", url: "textures/background.png"},
+   { name: "logo", url: "textures/logo.png"},
+   
+   { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
+   { name: "language", url: "spritesheets/language.json"},
+   { name: "chest", url: "spritesheets/chest.json"},
+   { name: "ui", url: "spritesheets/ui.json"},
 
-    { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
-    { name: "language", url: "spritesheets/language.json"},
-    { name: "chest", url: "spritesheets/chest.json"},
-    { name: "ui", url: "spritesheets/ui.json"},
+   { name: "skranji-white-export", url: "fonts/skranji-white-export.xml"},
+   { name: "worksans-orange-export", url: "fonts/worksans-orange-export.xml"},
+   { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
+   { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"},
 
-    { name: "skranji-white-export", url: "fonts/skranji-white-export.xml"},
-    { name: "worksans-orange-export", url: "fonts/worksans-orange-export.xml"},
-    { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
-    { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"}
+    { name: "test", url: "audio/SND_Chest_Open.mp3"}
 ] as Array<IAssetDefinition>
 
 
@@ -81,6 +84,8 @@ export function loadAssets(): Promise<void>{
             else if ( resource.texture ) {
                 textureCache[resource.name] = resource.texture;
             }
+
+            console.log(resource)
         } )
 
         loader.load(() => resolve());
@@ -107,4 +112,11 @@ export function getAnimationFrames(animationName: string): Array<Texture>{
         return animConfig.map( ( frame ) => getTexture(frame) );
     }
     throw `could not find animation config ${animationName}`
+}
+
+/**
+ * A wrapper method to play sounds
+ */
+export function playSound(soundName: string): void{
+    sound.play(soundName)
 }
