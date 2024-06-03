@@ -18,7 +18,14 @@ export const gameConfig = {
     gameboard:{
         padding: 1.00,
         scratchAllDelay: 0.5,
-        logoPos: { x: 0, y: -175 },
+        logoPos: { x: 0, y: -215 },
+        winUpToPos: { x: 0, y: -125 },
+        maxPrizePos: { x: 0, y: -100 },
+        maxPrizeStyle: {
+            fontSize: 38,
+            fontName: "skranji-interface-export",
+            align: "center"
+        } as Partial<IBitmapTextStyle>,
         ripple: {
             pos: { x: 0, y: 130 },
             scaleFrom: { x: 0.8, y: 0.8 },
@@ -29,13 +36,13 @@ export const gameConfig = {
         symbolPositions: [
             { x: -375,   y: 0   },
             { x: -175,   y: 0   },
-            { x: +10,    y: 0   },
+            { x: +10,    y: 10  },
             { x: +200,   y: 0   },
             { x: -375,   y: 150 },
             { x: -175,   y: 150 },
-            { x: +10,    y: 150 },
+            { x: +10,    y: 160 },
             { x: +200,   y: 150 },
-            { x: +400,   y: 150 }
+            { x: +380,   y: 130 }
         ] as Array<Point>
     },
     symbol:{
