@@ -5,7 +5,7 @@ class PlayerModel {
     private _stakes: Array<number>;
     private _currencySettings: ICurrencySettings;
 
-    public async init( data: ITicketResponse ): Promise<void>{
+    public init( data: ITicketResponse ): void{
         this._currencySettings = {
             currency: data.currency,
             locale: data.localle

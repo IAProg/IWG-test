@@ -7,6 +7,7 @@ class TicketModel{
     private _scenarios: Array<IScenarioData> = [];
     private _prizeTable: Array<number>;
     private _totalWin: number = 0;
+    private _maxWin: number;
 
     public onScenarioComplete(): void{
         this._scenarios.shift();
@@ -32,10 +33,14 @@ class TicketModel{
         return this._totalWin;
     }
 
+    public get maxWin(): number{
+        return this._maxWin;
+    }
 
     public setData(responseData: ITicketResponse): void{
         this._scenarios = responseData.scenarioData;
         this._prizeTable = responseData.prizeTable;
+        this._maxWin = responseData.maxWin;
 
         // calculate total win of all scenarios provided
         // assumes only one win per prize value is possible
