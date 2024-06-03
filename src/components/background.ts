@@ -14,14 +14,14 @@ export class Background extends Container {
     constructor(){
         super();
 
-        this._sprite = new Sprite(getTexture("background"))
+        this._sprite = new Sprite(getTexture("background.png"));
         this._sprite.anchor.set(0.50);
         this.addChild(this._sprite);
 
         this.size = {
             width: this.width,
             height: this.height
-        }
+        };
     }
 
     public resize(width: number, height: number): void{

@@ -3,18 +3,21 @@ import { IAssetDefinition } from "./types";
 import { sound } from "@pixi/sound";
 
 const assetManifest = [
-   { name: "background", url: "textures/background.png"},
-   { name: "logo", url: "textures/logo.png"},
+    { name: "background.png", url: "textures/background.png"},
+    { name: "logo.png", url: "textures/logo.png"},
+    { name: "revealAllLight.png", url: "textures/revealAllLight.png"},
+    { name: "revealAllDark.png", url: "textures/revealAllDark.png"},
 
-   { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
-   { name: "language", url: "spritesheets/language.json"},
-   { name: "chest", url: "spritesheets/chest.json"},
-   { name: "ui", url: "spritesheets/ui.json"},
+    { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
+    { name: "language", url: "spritesheets/language.json"},
+    { name: "chest", url: "spritesheets/chest.json"},
+    { name: "ui", url: "spritesheets/ui.json"},
 
-   { name: "skranji-white-export", url: "fonts/skranji-white-export.xml"},
-   { name: "worksans-orange-export", url: "fonts/worksans-orange-export.xml"},
-   { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
-   { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"},
+    { name: "skranji-white-export", url: "fonts/skranji-white-export.xml"},
+    { name: "worksans-orange-export", url: "fonts/worksans-orange-export.xml"},
+    { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
+    { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"},
+    { name: "skranji-yellow-export", url: "fonts/skranji-yellow-export.xml"},
 
     { name: "chestOpen", url: "audio/SND_Chest_Open.{ogg, mp3}"},
     { name: "click", url: "audio/SND_Click.{ogg, mp3}"},
