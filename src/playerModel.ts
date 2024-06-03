@@ -1,13 +1,16 @@
-class PlayerState {
+import { ICurrencySettings, ITicketResponse } from "./types";
+
+class PlayerModel {
     private _stakeIndex: number = 0; 
     private _stakes: Array<number>;
+    private _currencySettings: ICurrencySettings;
 
-
-    public async init(): Promise<void>{
-        const response = await fetch("gameInfo.json");
-        const gameInfo = await response.json();
-
-        this._stakes = gameInfo.stakes;
+    public async init( data: ITicketResponse ): Promise<void>{
+        this._currencySettings = {
+            currency: data.currency,
+            locale: data.localle
+        };
+        this._stakes = data.stakes;
     }
 
     public incrementStake(): void{
@@ -16,6 +19,10 @@ class PlayerState {
 
     public decrementStake(): void{
         this._stakeIndex = Math.max( this._stakeIndex - 1, 0 );
+    }
+
+    public get currencySettings(): ICurrencySettings{
+        return this._currencySettings;
     }
 
     public get currentStake(): number{
@@ -33,4 +40,4 @@ class PlayerState {
 
 }
 
-export const playerstate = new PlayerState();
+export const playerModel = new PlayerModel();

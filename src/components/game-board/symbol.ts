@@ -1,11 +1,9 @@
-import { AnimatedSprite, BitmapText, Container, Point, Sprite, TextStyle } from "pixi.js";
+import { AnimatedSprite, BitmapText, Container, Point, Sprite, TextStyle, Texture } from "pixi.js";
 import { gameConfig } from "../../config";
-import { ticketModel } from "../../ticket-model";
 import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
-import gsap from "gsap";
-import { ISizeRef } from "../../types";
 import { sound } from "@pixi/sound";
+import gsap from "gsap";
 
 export type SymbolClickCallback = (index: number) => Promise<void>;
 
@@ -18,7 +16,9 @@ export class GameSymbol extends Container {
     private _chestAnim: AnimatedSprite;
     private _glow: Sprite;
     private _prizeValue: BitmapText;
-    
+
+    private _framesOpen: Array<Texture>;
+    private _framesClose: Array<Texture>;
     
     constructor( id: number, onClickCallback: SymbolClickCallback ){
         super();
@@ -26,7 +26,10 @@ export class GameSymbol extends Container {
 
         const { glowPos, prizeValueStyle, prizevaluePos} = gameConfig.symbol;
 
-        this._chestAnim = new AnimatedSprite(getAnimationFrames("chest"));
+        this._framesOpen = getAnimationFrames("chest");
+        this._framesClose = getAnimationFrames("chest").reverse();
+
+        this._chestAnim = new AnimatedSprite(this._framesOpen);
         this._chestAnim.anchor.set(0.5);
         this._chestAnim.loop = false;
 
@@ -41,14 +44,18 @@ export class GameSymbol extends Container {
 
         this.addChild(this._chestAnim, this._glow, this._prizeValue);
 
+        this._chestAnim.play();
+
         this.on("pointerdown", () => onClickCallback(this.id) );
 
         const teaseTween = gsap.fromTo(this, { rotation: -0.05 }, { rotation: +0.05, repeat: -1, yoyo: true, duration: 4, ease: "power1.inOut" } );
         teaseTween.progress( Math.random() );
     }
 
-    public async preconfigure(): Promise<void>{
+    public async preconfigure(  ): Promise<void>{
         this._prizeValue.alpha = 0;
+        this.interactive = true;
+        this.playPromise( false );
     }
 
     public async setFade(isOn: boolean): Promise<void>{
@@ -56,10 +63,11 @@ export class GameSymbol extends Container {
         return asyncTween(this, { duration: 1, alpha: newAlpha });
     }
 
-    public async reveal(): Promise<void>{
+    public async reveal( value: number ): Promise<void>{
+        sound.play("chestOpen");
         await this.playPromise();
 
-        this._prizeValue.text = formatCurrency( 10 );
+        this._prizeValue.text = formatCurrency( value );
 
         await Promise.all([
             asyncTween(this._glow, { alpha: 1 }),
@@ -69,9 +77,9 @@ export class GameSymbol extends Container {
         await asyncTween(this._glow, { alpha: 0 });
     }
 
-    private playPromise(): Promise<void>{
+    private playPromise( playOpen: boolean = true ): Promise<void>{
+        this._chestAnim.textures = playOpen ? this._framesOpen : this._framesClose;
         return new Promise( resolve => {
-            sound.play("chestOpen");
             this._chestAnim.onComplete = resolve;
             this._chestAnim.gotoAndPlay(0);
         })

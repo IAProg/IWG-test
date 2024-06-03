@@ -4,6 +4,8 @@ import { Background } from "./background";
 import { Gameboard } from "./game-board";
 import { Cabinet } from "./cabinet";
 import { Foreground } from "./foreground";
+import { requestTicktData } from "../requests";
+import { ticketModel } from "../ticket-model";
 
 /**
  * The core of the application. 
@@ -47,9 +49,15 @@ export class IWGApp extends Application {
 
     // the main gameloop
     private async play(): Promise<void>{
+        ticketModel.setData(await requestTicktData());
         await this._cabinet.setShown(false);
-        this._gameBoard.preconfigure();
-        this._gameBoard.play();
-        return;
+
+        while( !ticketModel.gameComplete ){
+            await this._gameBoard.preconfigure();
+            await this._gameBoard.play();
+            ticketModel.onScenarioComplete();
+
+            console.log(ticketModel.gameComplete);
+        }
     }
 }

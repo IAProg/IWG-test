@@ -12,11 +12,6 @@ export interface IResponseData {
     colours: Array<number>;
 }
 
-export interface IPlayerStateConfig{
-    currency: string
-    stakes: Array<number>
-}
-
 export interface IButtonTextureConfig{
     base: string
     enabled: string
@@ -26,4 +21,19 @@ export interface IButtonTextureConfig{
 export interface ICurrencySettings{
     currency: string
     locale: Intl.LocalesArgument
+}
+
+export interface IScenarioData{
+    winner: true,
+    prizeIndexes: Array<number>,
+    winningIndexes: Array<number>
+}
+
+export interface ITicketResponse{
+    gameId: string,
+	currency: string,
+    localle: string,
+	stakes: Array<number>,
+	prizeTable: Array<number>,
+	scenarioData: Array<IScenarioData>
 }

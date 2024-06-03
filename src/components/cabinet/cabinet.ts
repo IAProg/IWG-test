@@ -4,7 +4,8 @@ import { gameConfig } from "../../config";
 import { asyncTween, formatCurrency } from "../../utils";
 import { ISizeRef } from "../../types";
 import { Button } from "./button";
-import { playerstate } from "../../playerState";
+import { playerModel } from "../../playerModel";
+import { Sound, sound } from "@pixi/sound";
 
 /**
  * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
@@ -42,14 +43,16 @@ export class Cabinet extends Container {
         setBet.y = setBetY;
 
         this._btnPlus = new Button( plusButton.textureConfig , () => { 
-            playerstate.incrementStake();
+            playerModel.incrementStake();
             this.updateStakeDisplay();
+            sound.play("click");
         } );
         this._btnPlus.position.copyFrom(plusButton.pos);
 
         this._btnMinus = new Button( minusButton.textureConfig , () => { 
-            playerstate.decrementStake();
+            playerModel.decrementStake();
             this.updateStakeDisplay();
+            sound.play("click");
         } );
         this._btnMinus.position.copyFrom(minusButton.pos);
 
@@ -61,7 +64,10 @@ export class Cabinet extends Container {
         this._btnPlay.anchor.set(0.5);
         this._btnPlay.position.copyFrom(playPos);
         this._btnPlay.interactive = true;
-        this._btnPlay.on("pointerdown", playCallback)
+        this._btnPlay.on("pointerdown", () => {
+            sound.play("click");
+            playCallback();
+        });
 
         this.addChild(panelTop, panelMid, panelBottom, setBet, this._btnPlus, this._btnMinus, this._stakeText, this._btnPlay);
 
@@ -102,8 +108,8 @@ export class Cabinet extends Container {
     }
 
     private updateStakeDisplay(): void{
-        this._stakeText.text = formatCurrency(playerstate.currentStake);
-        this._btnMinus.setEnabled(!playerstate.isMinStake);
-        this._btnPlus.setEnabled(!playerstate.isMaxStake);
+        this._stakeText.text = formatCurrency(playerModel.currentStake, playerModel.currencySettings);
+        this._btnMinus.setEnabled(!playerModel.isMinStake);
+        this._btnPlus.setEnabled(!playerModel.isMaxStake);
     }
 }

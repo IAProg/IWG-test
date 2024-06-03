@@ -5,6 +5,7 @@ import { getTexture } from "../../asset-loader";
 import { GameSymbol } from "./symbol";
 import { ISizeRef } from "../../types";
 import gsap from "gsap";
+import { ticketModel } from "../../ticket-model";
 
 
 /**
@@ -18,6 +19,7 @@ export class Gameboard extends Container {
 
     private _symbols: Array<GameSymbol>;
     private _symbolPool: Array<number>;
+    private _revealCount: number;
 
     private _playResolve: () => void;
 
@@ -58,17 +60,16 @@ export class Gameboard extends Container {
     }
 
     public async preconfigure(): Promise<void>{
-        this._symbolPool = [0, 1, 2, 3, 4, 5, 6, 7, 8 ];
-        this._symbols.forEach( symbol => symbol.interactive = true )
-    }
-
-    public async setFade(isOn: boolean): Promise<void>{
-        const newAlpha = isOn ? 1 : 0;
-        return asyncTween(this, { duration: 1, alpha: newAlpha });
+        this._revealCount = 0;
+        this._symbolPool = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        this._symbols.forEach( symbol => symbol.preconfigure() );
     }
 
     public async play(): Promise<void>{
         await this.awaitAllOpened();
+
+        // show prizes
+        // play sound
     }
 
     public revealAll(): void{
@@ -87,11 +88,22 @@ export class Gameboard extends Container {
         )
     }
 
-    private onSymbolPress( symbolIndex: number ): void{
+    public async setFade(isOn: boolean): Promise<void>{
+        const newAlpha = isOn ? 1 : 0;
+        return asyncTween(this, { duration: 1, alpha: newAlpha });
+    }
+
+    private async onSymbolPress( symbolIndex: number ): Promise<void>{
         this._symbolPool.splice(this._symbolPool.indexOf(symbolIndex), 1);
         const clickedSymbol = this._symbols[symbolIndex];
+        const symbolValue = ticketModel.prizeIndexes[symbolIndex];
 
-        clickedSymbol.reveal();
+        await clickedSymbol.reveal(symbolValue);
+        
+        this._revealCount++;
+        if ( this._revealCount >= this._symbols.length ) {
+            this._playResolve();
+        }
     }
 
     private async awaitAllOpened(): Promise<void>{
