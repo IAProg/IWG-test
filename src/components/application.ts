@@ -77,9 +77,8 @@ export class IWGApp extends Application {
         }
         
         this._revealAll.setShown(false);
-        this._endCard.displayWin(ticketModel.totalWin);
-
-        const choice = await this._endCard.awaitPlayerChoice();
+        
+        const choice = await this._endCard.display(ticketModel.totalWin);
         if ( choice === PlayerChoice.Play ) {
             this.play();
         } else {

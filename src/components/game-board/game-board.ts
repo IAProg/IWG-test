@@ -72,17 +72,27 @@ export class Gameboard extends Container {
         };
     }
 
+    /**
+     * configure the game board for a new round
+     * @param isFirstPurchase - flag to show if this is the first game or not
+     */
     public async preconfigure( isFirstPurchase: boolean ): Promise<void>{
         this._revealCount = 0;
         this._symbolPool = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         this._symbols.forEach( symbol => symbol.preconfigure(isFirstPurchase) );
     }
 
+    /**
+     * play through current scenario
+     */
     public async play(): Promise<void>{
         await this.awaitAllOpened();
         await this.animateWinningSymbols();
     }
 
+    /**
+     * automatically reveal symbols until none remain
+     */
     public async revealAll(): Promise<void>{
         if (this._symbolPool.length > 0 ) {
             this.revealRandom();
@@ -90,6 +100,12 @@ export class Gameboard extends Container {
         }
     }
 
+    /**
+     * resize handler.
+     * scales to fit the game stage
+     * @param width - width of the game screen
+     * @param height - width of the game screen
+     */
     public resize(width: number, height: number): void{
         this.scale.set(Math.min(
             width  / this.size.width,
@@ -102,11 +118,11 @@ export class Gameboard extends Container {
         )
     }
 
-    public async setFade(isOn: boolean): Promise<void>{
-        const newAlpha = isOn ? 1 : 0;
-        return asyncTween(this, { duration: 1, alpha: newAlpha });
-    }
-
+    /**
+     * handle the reveal of one a selected symbol
+     * plays animation and resolves play promise if game is completed
+     * @param symbolIndex - index of pressed symbol
+     */
     private async onSymbolPress( symbolIndex: number ): Promise<void>{
         this._symbolPool.splice(this._symbolPool.indexOf(symbolIndex), 1);
         const clickedSymbol = this._symbols[symbolIndex];
@@ -122,12 +138,19 @@ export class Gameboard extends Container {
         }
     }
 
+    /**
+     * returns a promise which is resolved when all symbols have been revealed
+     */
     private async awaitAllOpened(): Promise<void>{
         return new Promise((resolve) => {
             this._playResolve = resolve;
         });
     }
 
+    /**
+     * play glow animation on all winning symbols
+     * returns a promise which resolves when glow animations complete
+     */
     private async animateWinningSymbols(): Promise<void>{
         const endSound = ticketModel.currentScenario.winner ? "endWin" : "endLose";
         sound.play(endSound);
@@ -139,6 +162,9 @@ export class Gameboard extends Container {
         await Promise.all(proms);
     }
 
+    /**
+     * reveal a random symbol in the pool
+     */
     private async revealRandom(): Promise<void> {
         if (this._symbolPool.length > 0) {
             return this.onSymbolPress(this._symbolPool[Math.floor(Math.random() * this._symbolPool.length)]);

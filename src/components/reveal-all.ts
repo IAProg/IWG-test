@@ -8,7 +8,7 @@ import { Button } from "./button";
 
 
 /**
- * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
+ * Foreground assets 
  */
 export class RevealAll extends Container {
     private _onPos: IPointData;
@@ -43,6 +43,10 @@ export class RevealAll extends Container {
         this._btnRevealAll.setEnabled(mode)
     }
 
+    /**
+     * show or hide component by tweening to position
+     * @param mode - flag for show or hide
+     */
     public async setShown( mode: boolean ): Promise<void>{
         this._isShown = mode;
 
@@ -51,11 +55,17 @@ export class RevealAll extends Container {
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
     }
 
+    /**
+     * resize handler.
+     * scales to fit the game stage
+     * @param width - width of the game screen
+     * @param height - width of the game screen
+     */
     public resize(width: number, height: number): void{
         const setScale = Math.min(
             width  / this.size.width,
             height / this.size.height
-        )
+        );
 
         this.scale.set(setScale);
 

@@ -20,8 +20,6 @@ export class Cabinet extends Container {
     private _btnMinus: Button;
     private _btnPlay: Sprite;
 
-    private _setBetContainer: Container;
-
     private size: ISizeRef;
     
     constructor( playCallback: () => void ){
@@ -78,6 +76,10 @@ export class Cabinet extends Container {
         this.updateStakeDisplay();
     }
 
+    /**
+     * show or hide component by tweening to position
+     * @param mode - flag for show or hide
+     */
     public async setShown( mode: boolean ): Promise<void>{
         this._isShown = mode;
 
@@ -87,11 +89,17 @@ export class Cabinet extends Container {
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
     }
 
+    /**
+     * resize handler.
+     * scales to fit the games tage
+     * @param width - width of the game screen
+     * @param height - width of the game screen
+     */
     public resize(width: number, height: number): void{
         const setScale = Math.min(
             width  / this.size.width,
             height / this.size.height
-        )
+        );
         this.scale.set(setScale);
 
         const calculatedWidth = this.size.width * setScale
@@ -113,6 +121,9 @@ export class Cabinet extends Container {
         this.position.copyFrom( this._isShown ? this._onPos : this._offPos );
     }
 
+    /**
+     * update stake control elements to reflect current stake 
+     */
     private updateStakeDisplay(): void{
         this._stakeText.text = formatCurrency(playerModel.currentStake, playerModel.currencySettings);
         this._btnMinus.setEnabled(!playerModel.isMinStake);

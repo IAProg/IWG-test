@@ -12,7 +12,8 @@ export enum PlayerChoice {
 }
 
 /**
- * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
+ * The end card container
+ * Displays the total prize won for a purchase and player options (play again & change stake)
  */
 export class EndCard extends Container {
     private _onPos: IPointData;
@@ -60,18 +61,17 @@ export class EndCard extends Container {
         this.size = size;
     }
 
-    public async displayWin( prize: number ): Promise<void>{
+    public async display( prize: number ): Promise<PlayerChoice>{
         this._prizeText.text = formatCurrency(prize, playerModel.currencySettings);
 
         await this.setShown(true);
+        return this._awaitPlayerChoice();
     }
 
-    public async awaitPlayerChoice(): Promise<PlayerChoice>{
-        return new Promise((resolve) => {
-            this._resolveChoice = resolve;
-        });
-    }
-
+    /**
+     * show or hide component by tweening to position
+     * @param mode - flag for show or hide
+     */
     public async setShown( mode: boolean ): Promise<void>{
         this._isShown = mode;
 
@@ -81,12 +81,17 @@ export class EndCard extends Container {
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
     }
 
+    /**
+     * resize handler.
+     * scales to fit the game stage
+     * @param width - width of the game screen
+     * @param height - width of the game screen
+     */
     public resize(width: number, height: number): void{
         const setScale = Math.min(
             width  / this.size.width,
             height / this.size.height
-        )
-
+        );
         this.scale.set(setScale);
 
         this._onPos = new Point(
@@ -102,9 +107,18 @@ export class EndCard extends Container {
         this.position.copyFrom( this._isShown ? this._onPos : this._offPos );
     }
 
+    /**
+     * resolve choice promise with provided value
+     */
     private _handleChoice( choice: PlayerChoice ): void{
         this._resolveChoice && this._resolveChoice(choice);
-        sound.play("click");
         this.setShown(false);
+        sound.play("click");
+    }
+
+    private async _awaitPlayerChoice(): Promise<PlayerChoice>{
+        return new Promise((resolve) => {
+            this._resolveChoice = resolve;
+        });
     }
 }

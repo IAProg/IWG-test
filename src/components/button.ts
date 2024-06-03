@@ -37,6 +37,10 @@ export class Button extends Container {
         } );
     }
 
+    /**
+     * set the state of the button
+     * @param isEnabled - flag to set symbol to enabled or disabled state
+     */
     public setEnabled( isEnabled: boolean ): void{
         this.interactive = isEnabled;
         this._enabledCover.visible = isEnabled;
