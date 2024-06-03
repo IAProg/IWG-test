@@ -2,6 +2,9 @@ import { Loader, Texture } from "pixi.js";
 import { IAssetDefinition } from "./types";
 import { sound } from "@pixi/sound";
 
+/**
+ * asset manifest, lists all assets to be loaded
+ */
 const assetManifest = [
     { name: "background.png", url: "textures/background.png"},
     { name: "logo.png", url: "textures/logo.png"},
@@ -26,7 +29,9 @@ const assetManifest = [
     { name: "winReveal", url: "audio/SND_Win_Revealed.{ogg, mp3}"}
 ] as Array<IAssetDefinition>
 
-
+/**
+ * animation configs - with the correct texture packer set up this data could instead be pulled from sprite sheets 
+ */
 const animationConfigs = {
     chest: [
         "chest_animation0001.png",

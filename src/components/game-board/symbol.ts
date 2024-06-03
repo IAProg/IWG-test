@@ -55,6 +55,10 @@ export class GameSymbol extends Container {
         teaseTween.progress( Math.random() );
     }
 
+    /**
+     * prepare the symbol for a new scenario
+     * @param isFirstPurchase - flag to show if symbol is being configured before or after initial purchase
+     */
     public async preconfigure( isFirstPurchase: boolean = false ): Promise<void>{
         const { prizeValue } = gameConfig.symbol;
         asyncTween(this._prizeValue, { alpha: 0 });
@@ -65,16 +69,24 @@ export class GameSymbol extends Container {
         this.interactive = true;
     }
 
+    /**
+     * play animations for revealing the symbol
+     * @param value - value to display on symbol reveal
+     */
     public async reveal( value: number ): Promise<void>{
         this.interactive = false;
         this._prizeValue.text = formatCurrency( value, playerModel.currencySettings );
 
         sound.play("chestOpen");
-        asyncTween(this._prizeValue, { alpha: 1, delay: 0.5 })
-        await this.playPromise();
-
+        await Promise.all([
+            asyncTween(this._prizeValue, { alpha: 1, delay: 0.5 }),
+            this.playPromise()
+        ]);
     }
 
+    /**
+     * play animations for highlighting winning symbol
+     */
     public async showGlow(): Promise<void>{
         const { prizeValue } = gameConfig.symbol;
         this._prizeValue.fontName = prizeValue.winFont;
@@ -83,6 +95,10 @@ export class GameSymbol extends Container {
         await asyncTween(this._glow, { alpha: 0, duration: 1  });
     }
 
+    /**
+     * play animated sprite animation
+     * @param playOpen - flag used to set direction of animation
+     */
     private playPromise( playOpen: boolean = true ): Promise<void>{
         this._chestAnim.textures = playOpen ? this._framesOpen : this._framesClose;
         return new Promise( resolve => {

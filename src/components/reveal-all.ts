@@ -8,7 +8,8 @@ import { Button } from "./button";
 
 
 /**
- * Foreground assets 
+ * Reveal All container 
+ * Provides the "reveal all" button 
  */
 export class RevealAll extends Container {
     private _onPos: IPointData;
