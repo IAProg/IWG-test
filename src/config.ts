@@ -53,7 +53,7 @@ export const gameConfig = {
     },
     cabinet: {
         size: {
-            width: 500,
+            width: 400,
             height: 842
         },
         showHideTweenProps: {
@@ -96,6 +96,38 @@ export const gameConfig = {
         topPanelY: -365,
         botPanelY: 175,
         setBetY: -180
+    },
+    revealAll: {
+        size: {
+            width: 400,
+            height: 842
+        },
+        backdropPos:{
+            x: 0,
+            y: -400
+        },
+        revealAllButtonPos:{
+            x: -5,
+            y: -228
+        }
+    },
+    endCard: {
+        size: {
+            width: 400,
+            height: 842
+        },
+        backdropPos:{
+            x: 0,
+            y: -400
+        },
+        playButtonPos:{
+            x: -125,
+            y: -190
+        },
+        stakeButtonPos:{
+            x: +125,
+            y: -190
+        }
     },
     foreground: {
         treeSpacing: 800,

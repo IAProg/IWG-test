@@ -13,12 +13,14 @@ import { Sound, sound } from "@pixi/sound";
 export class Cabinet extends Container {
     private _onPos: IPointData;
     private _offPos: IPointData;
-    private _isShown: boolean = false;
+    private _isShown: boolean = true;
 
     private _stakeText: BitmapText;
     private _btnPlus: Button;
     private _btnMinus: Button;
     private _btnPlay: Sprite;
+
+    private _setBetContainer: Container;
 
     private size: ISizeRef;
     

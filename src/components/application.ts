@@ -4,9 +4,11 @@ import { Background } from "./background";
 import { Gameboard } from "./game-board";
 import { Cabinet } from "./cabinet";
 import { Foreground } from "./foreground";
-import { requestTicktData } from "../requests";
+import { requestTicketData } from "../requests";
 import { ticketModel } from "../ticket-model";
 import { delay } from "../utils";
+import { RevealAll } from "./reveal-all";
+import { EndCard, PlayerChoice } from "./end-card";
 
 /**
  * The core of the application. 
@@ -17,6 +19,8 @@ export class IWGApp extends Application {
     private _gameBoard: Gameboard;
     private _foreground: Foreground;
     private _cabinet: Cabinet;
+    private _revealAll: RevealAll;
+    private _endCard: EndCard;
 
     constructor(){
         super(gameConfig.canvas)
@@ -25,7 +29,10 @@ export class IWGApp extends Application {
         this._foreground = new Foreground();
         this._cabinet = new Cabinet( this.play.bind(this) );
 
-        this.stage.addChild(this._background, this._gameBoard, this._foreground, this._cabinet);
+        this._revealAll = new RevealAll(() => this._gameBoard.revealAll());
+        this._endCard = new EndCard();
+
+        this.stage.addChild(this._background, this._revealAll, this._gameBoard, this._foreground, this._cabinet, this._revealAll, this._endCard);
 
         window.addEventListener("resize", () => {
             this.scaleContent(this.screen.width, this.screen.height);
@@ -46,12 +53,15 @@ export class IWGApp extends Application {
         this._gameBoard.resize(width, height);
         this._foreground.resize(width, height);
         this._cabinet.resize(width, height);
+        this._revealAll.resize(width, height);
+        this._endCard.resize(width, height);
     }
 
     // the main gameloop
     private async play(): Promise<void>{
-        ticketModel.setData(await requestTicktData());
+        ticketModel.setData(await requestTicketData());
         await this._cabinet.setShown(false);
+        this._revealAll.setShown(true);
 
         while( !ticketModel.gameComplete ){
             await this._gameBoard.preconfigure();
@@ -60,6 +70,14 @@ export class IWGApp extends Application {
             ticketModel.onScenarioComplete();
         }
 
-        await this._cabinet.setShown(true);
+        this._revealAll.setShown(false);
+        this._endCard.displayWin(10);
+
+        const choice = await this._endCard.awaitPlayerChoice();
+        if ( choice === PlayerChoice.Play ) {
+            this.play();
+        } else {
+            this._cabinet.setShown(true);
+        }
     }
 }
