@@ -1,12 +1,13 @@
-import { Container, Sprite } from "pixi.js";
+import { BitmapText, Container, Sprite } from "pixi.js";
 import { gameConfig } from "../../config";
-import { asyncTween, delay } from "../../utils";
+import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getTexture } from "../../asset-loader";
 import { GameSymbol } from "./symbol";
 import { ISizeRef } from "../../types";
 import gsap from "gsap";
 import { ticketModel } from "../../ticket-model";
 import { sound } from "@pixi/sound";
+import { playerModel } from "../../playerModel";
 
 
 /**
@@ -17,6 +18,8 @@ export class Gameboard extends Container {
     private _backdrop: Sprite;
     private _waterRipple: Sprite;
     private _logo: Sprite;
+    private _winUpTo: Sprite;
+    private _maxPrizeText: BitmapText;
 
     private _symbols: Array<GameSymbol>;
     private _symbolPool: Array<number>;
@@ -29,7 +32,7 @@ export class Gameboard extends Container {
     constructor(){
         super();
 
-        const { logoPos, symbolPositions, padding, ripple } = gameConfig.gameboard;
+        const { logoPos, winUpToPos, maxPrizePos, maxPrizeStyle, symbolPositions, padding, ripple } = gameConfig.gameboard;
 
         this._waterRipple = new Sprite(getTexture("waterRipple.png"));
         this._waterRipple.anchor.set(0.5);
@@ -45,6 +48,15 @@ export class Gameboard extends Container {
         this._logo.anchor.set(0.5);
         this._logo.position.copyFrom(logoPos);
 
+        this._winUpTo = new Sprite(getTexture("winUpTo.png"));
+        this._winUpTo.anchor.set(0.5);
+        this._winUpTo.position.copyFrom(winUpToPos);
+
+        const maxWinString = formatCurrency( ticketModel.maxWin, playerModel.currencySettings );
+        this._maxPrizeText = new BitmapText(maxWinString, maxPrizeStyle);
+        this._maxPrizeText.anchor.set(0.5);
+        this._maxPrizeText.position.copyFrom(maxPrizePos);
+
         this._symbols = [];
         symbolPositions.forEach( ( pos, i ) => {
             const gameSymbol = new GameSymbol( i, this.onSymbolPress.bind(this) );
@@ -52,7 +64,7 @@ export class Gameboard extends Container {
             this._symbols[i] = gameSymbol;
         });
 
-        this.addChild(this._waterRipple, this._backdrop, this._logo, ...this._symbols);
+        this.addChild(this._waterRipple, this._backdrop, this._logo, this._winUpTo, this._maxPrizeText, ...this._symbols);
 
         this.size = {
             width:  padding * this._backdrop.width,
@@ -60,10 +72,10 @@ export class Gameboard extends Container {
         };
     }
 
-    public async preconfigure(): Promise<void>{
+    public async preconfigure( isFirstPurchase: boolean ): Promise<void>{
         this._revealCount = 0;
         this._symbolPool = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        this._symbols.forEach( symbol => symbol.preconfigure() );
+        this._symbols.forEach( symbol => symbol.preconfigure(isFirstPurchase) );
     }
 
     public async play(): Promise<void>{
