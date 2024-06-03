@@ -20,26 +20,28 @@ export class EndCard extends Container {
     private _offPos: IPointData;
     private _isShown: boolean = false;
 
+    private _backDrop: Sprite;
+    private _winMessage: Sprite;
     private _btnPlay: Sprite;
     private _btnStake: Sprite;
     private _prizeText: BitmapText;
 
-    private _resolveChoice: (value: PlayerChoice) => void
+    private _resolveChoice: (value: PlayerChoice) => void;
 
     private size: ISizeRef;
     
     constructor( ){
         super();
 
-        const { size, backdropPos, playButtonPos, stakeButtonPos, prizeValueStyle, prizeValuePos, winMessagePos } = gameConfig.endCard;
+        const { size, backdropPos, playButtonPos, stakeButtonPos, prizeValue, winMessagePos } = gameConfig.endCard;
 
-        const backDrop = new Sprite(getTexture("panelEndMessage.png"));
-        backDrop.anchor.set(0.5);
-        backDrop.position.copyFrom(backdropPos);
+        this._backDrop = new Sprite(getTexture("panelEndMessage.png"));
+        this._backDrop.anchor.set(0.5);
+        this._backDrop.position.copyFrom(backdropPos);
 
-        const winMessage = new Sprite(getTexture("winMessage.png"));
-        winMessage.anchor.set(0.5);
-        winMessage.position.copyFrom(winMessagePos);
+        this._winMessage = new Sprite(getTexture("winMessage.png"));
+        this._winMessage.anchor.set(0.5);
+        this._winMessage.position.copyFrom(winMessagePos);
 
         this._btnPlay = new Sprite(getTexture("playButton.png"));
         this._btnPlay.anchor.set(0.5);
@@ -53,11 +55,11 @@ export class EndCard extends Container {
         this._btnStake.position.copyFrom(stakeButtonPos);
         this._btnStake.on("pointerdown", () => this._handleChoice(PlayerChoice.ChangeStake) );
 
-        this._prizeText = new BitmapText("$10", prizeValueStyle);
+        this._prizeText = new BitmapText("$10", prizeValue.style);
         this._prizeText.anchor.set(0.5);
-        this._prizeText.position.copyFrom(prizeValuePos)
+        this._prizeText.position.copyFrom(prizeValue.pos);
 
-        this.addChild(backDrop, this._btnPlay, this._btnStake, this._prizeText, winMessage);
+        this.addChild(this._backDrop, this._btnPlay, this._btnStake, this._prizeText, this._winMessage);
         this.size = size;
     }
 

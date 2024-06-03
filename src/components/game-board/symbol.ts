@@ -9,7 +9,11 @@ import { playerModel } from "../../player-model";
 export type SymbolClickCallback = (index: number) => Promise<void>;
 
 /**
- * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
+ * The game symbol representing chests in the game.
+ * Plays animations
+ * @constructor
+ * @param id - symbol id
+ * @param onClickCallback - callback for on symbol click
  */
 export class GameSymbol extends Container {
     public readonly id: number;
@@ -25,7 +29,7 @@ export class GameSymbol extends Container {
         super();
         this.id = id;
 
-        const { glowPos, prizeValue, prizevaluePos} = gameConfig.symbol;
+        const { glowPos, prizeValue } = gameConfig.symbol;
 
         this._framesOpen = getAnimationFrames("chest");
         this._framesClose = getAnimationFrames("chest").reverse();
@@ -44,7 +48,7 @@ export class GameSymbol extends Container {
             fontName: prizeValue.defaultFont
         });
         this._prizeValue.anchor.set(0.5);
-        this._prizeValue.position.copyFrom(prizevaluePos);
+        this._prizeValue.position.copyFrom(prizeValue.pos);
         this._prizeValue.alpha = 0;
 
         this.addChild(this._chestAnim, this._glow, this._prizeValue);

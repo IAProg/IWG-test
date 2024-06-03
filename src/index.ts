@@ -4,7 +4,10 @@ import { playerModel } from "./player-model";
 import { recoverTicketData } from "./requests";
 import { gameModel } from "./game-model";
 
-// a very simple loading process - the assets are loaded before the game 
+/**
+ * basic loading system
+ * Load assets, recover data, then launch the game
+ */
 loadAssets()
 .then(() => recoverTicketData())
 .then((data) => {

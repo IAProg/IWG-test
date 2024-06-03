@@ -47,18 +47,19 @@ export const gameConfig = {
     symbol:{
         glowPos:{
             x: 0,
-            y: -25
+            y: -24
         },
         prizeValue:{
             style: {
-                align: "center"
+                align: "center",
+                fontSize: 30
             } as Partial<IBitmapTextStyle>,
             winFont: "skranji-yellow-export" ,
-            defaultFont: "skranji-white-export"
-        },
-        prizevaluePos: {
-            x: 0,
-            y: -50
+            defaultFont: "skranji-white-export",
+            pos: {
+                x: 0,
+                y: -45
+            }
         }
     },
     cabinet: {
@@ -151,18 +152,20 @@ export const gameConfig = {
             x: +125,
             y: -190
         },
-        prizeValuePos:{
-            x: 0,
-            y: -267
+        prizeValue:{
+            pos: {
+                x: 0,
+                y: -267
+            },
+            style: {
+                fontName: "worksans-orange-export",
+                align: "center"
+            } as Partial<IBitmapTextStyle>,
         },
         winMessagePos:{
             x: 0,
             y: -240
-        },
-        prizeValueStyle: {
-            fontName: "worksans-orange-export",
-            align: "center"
-        } as Partial<IBitmapTextStyle>,
+        }
     },
     foreground: {
         treeSpacing: 600,

@@ -8,12 +8,10 @@ import { ISizeRef } from "../types";
 
 export class Background extends Container {
     private _sprite: Sprite;
-
     private size: ISizeRef;
     
     constructor(){
         super();
-
         this._sprite = new Sprite(getTexture("background.png"));
         this._sprite.anchor.set(0.50);
         this.addChild(this._sprite);

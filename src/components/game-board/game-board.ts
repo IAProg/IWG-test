@@ -14,7 +14,6 @@ import { playerModel } from "../../player-model";
  * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
  */
 export class Gameboard extends Container {
-
     private _backdrop: Sprite;
     private _waterRipple: Sprite;
     private _logo: Sprite;

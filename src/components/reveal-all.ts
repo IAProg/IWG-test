@@ -10,24 +10,26 @@ import { Button } from "./button";
 /**
  * Reveal All container 
  * Provides the "reveal all" button 
+ * @constructor
+ * @param revealAllCallback - callback for on reveal all button press
  */
 export class RevealAll extends Container {
     private _onPos: IPointData;
     private _offPos: IPointData;
     private _isShown: boolean = false;
 
+    private _backDrop: Sprite;
     private _btnRevealAll: Button;
 
     private size: ISizeRef;
     
     constructor( revealAllCallback: () => void ){
         super();
-
         const { size, backdropPos, revealAllbutton } = gameConfig.revealAll;
 
-        const backDrop = new Sprite(getTexture("panelRevealAll.png"));
-        backDrop.anchor.set(0.5);
-        backDrop.position.copyFrom(backdropPos);
+        this._backDrop = new Sprite(getTexture("panelRevealAll.png"));
+        this._backDrop.anchor.set(0.5);
+        this._backDrop.position.copyFrom(backdropPos);
 
         this._btnRevealAll = new Button( revealAllbutton.textureConfig, () => {
             this._btnRevealAll.setEnabled(false);
@@ -36,7 +38,7 @@ export class RevealAll extends Container {
         });
         this._btnRevealAll.position.copyFrom(revealAllbutton.pos);
 
-        this.addChild(backDrop, this._btnRevealAll);
+        this.addChild(this._backDrop, this._btnRevealAll);
         this.size = size;
     }
 

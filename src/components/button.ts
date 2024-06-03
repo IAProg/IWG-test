@@ -12,7 +12,7 @@ export class Button extends Container {
     private _disabledCover: Sprite;
     
     constructor( texConfig: IButtonTextureConfig, callback: () => void, initEnabled: boolean = true ){
-        super(  );
+        super();
         this.interactive = initEnabled;
 
         this._baseSprite = new Sprite(getTexture(texConfig.base));

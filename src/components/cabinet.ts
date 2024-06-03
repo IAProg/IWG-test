@@ -5,11 +5,13 @@ import { asyncTween, formatCurrency } from "../utils";
 import { ISizeRef } from "../types";
 import { Button } from "./button";
 import { playerModel } from "../player-model";
-import { Sound, sound } from "@pixi/sound";
+import { sound } from "@pixi/sound";
 
 /**
  * Cabinet container
  * displays stake controls and play button
+ * @constructor
+ * @param playCallback - callback for on play button press
  */
 export class Cabinet extends Container {
     private _onPos: IPointData;
@@ -25,7 +27,6 @@ export class Cabinet extends Container {
     
     constructor( playCallback: () => void ){
         super();
-
         const { size, topPanelY, botPanelY, setBetY, plusButton, minusButton, stakeTextStyle, staketextPos, playPos} = gameConfig.cabinet;
 
         const panelTop = new Sprite(getTexture("panelVS1.png"));
