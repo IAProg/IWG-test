@@ -69,15 +69,13 @@ export class Gameboard extends Container {
     public async play(): Promise<void>{
         await this.awaitAllOpened();
         await this.animateWinningSymbols();
-
-
-
-        // show prizes
-        // play sound
     }
 
-    public revealAll(): void{
-        //
+    public async revealAll(): Promise<void>{
+        if (this._symbolPool.length > 0 ) {
+            this.revealRandom();
+            gsap.delayedCall(gameConfig.gameboard.scratchAllDelay, this.revealAll.bind(this));
+        }
     }
 
     public resize(width: number, height: number): void{
@@ -127,5 +125,11 @@ export class Gameboard extends Container {
             proms.push(this._symbols[winningIndex].showGlow());
         }
         await Promise.all(proms);
+    }
+
+    private async revealRandom(): Promise<void> {
+        if (this._symbolPool.length > 0) {
+            return this.onSymbolPress(this._symbolPool[Math.floor(Math.random() * this._symbolPool.length)]);
+        }
     }
 }
