@@ -6,6 +6,7 @@ import { Cabinet } from "./cabinet";
 import { Foreground } from "./foreground";
 import { requestTicktData } from "../requests";
 import { ticketModel } from "../ticket-model";
+import { delay } from "../utils";
 
 /**
  * The core of the application. 
@@ -55,9 +56,10 @@ export class IWGApp extends Application {
         while( !ticketModel.gameComplete ){
             await this._gameBoard.preconfigure();
             await this._gameBoard.play();
+            await delay(1000);
             ticketModel.onScenarioComplete();
-
-            console.log(ticketModel.gameComplete);
         }
+
+        await this._cabinet.setShown(true);
     }
 }

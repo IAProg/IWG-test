@@ -4,6 +4,7 @@ import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
 import { sound } from "@pixi/sound";
 import gsap from "gsap";
+import { playerModel } from "../../playerModel";
 
 export type SymbolClickCallback = (index: number) => Promise<void>;
 
@@ -53,28 +54,25 @@ export class GameSymbol extends Container {
     }
 
     public async preconfigure(  ): Promise<void>{
-        this._prizeValue.alpha = 0;
-        this.interactive = true;
+        asyncTween(this._prizeValue, { alpha: 0 });
         this.playPromise( false );
-    }
-
-    public async setFade(isOn: boolean): Promise<void>{
-        const newAlpha = isOn ? 1 : 0;
-        return asyncTween(this, { duration: 1, alpha: newAlpha });
+        this.interactive = true;
     }
 
     public async reveal( value: number ): Promise<void>{
+        this.interactive = false;
+        this._prizeValue.text = formatCurrency( value, playerModel.currencySettings );
+
         sound.play("chestOpen");
+        asyncTween(this._prizeValue, { alpha: 1, delay: 0.5 })
         await this.playPromise();
 
-        this._prizeValue.text = formatCurrency( value );
+    }
 
-        await Promise.all([
-            asyncTween(this._glow, { alpha: 1 }),
-            asyncTween(this._prizeValue, { alpha: 1 })
-        ])
+    public async showGlow(): Promise<void>{
+        await asyncTween(this._glow, { alpha: 1, duration: 1 });
         await delay(250);
-        await asyncTween(this._glow, { alpha: 0 });
+        await asyncTween(this._glow, { alpha: 0, duration: 1  });
     }
 
     private playPromise( playOpen: boolean = true ): Promise<void>{

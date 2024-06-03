@@ -7,17 +7,26 @@ class TicketModel{
     private _scenarios: Array<IScenarioData> = [];
     private _prizeTable: Array<number>;
 
-    public onScenarioComplete(): IScenarioData{
-        return this._scenarios.shift();
+    public onScenarioComplete(): void{
+        this._scenarios.shift();
     }
 
     public get gameComplete(): boolean{
         return this._scenarios.length === 0;
     }
 
-    public get prizeIndexes(): Array<number>{
-        return this._scenarios[0].prizeIndexes;
+    public get prizeTable(): Array<number>{
+        return this._prizeTable;
     }
+
+    public get currentScenario(): IScenarioData{
+        return this._scenarios[0]
+    }
+
+    public get winningIndexes(): Array<number>{
+        return this._scenarios[0].winningIndexes;
+    }
+
 
     public setData(responseData: ITicketResponse): void{
         this._scenarios = responseData.scenarioData;

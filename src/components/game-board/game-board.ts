@@ -6,6 +6,7 @@ import { GameSymbol } from "./symbol";
 import { ISizeRef } from "../../types";
 import gsap from "gsap";
 import { ticketModel } from "../../ticket-model";
+import { sound } from "@pixi/sound";
 
 
 /**
@@ -67,6 +68,9 @@ export class Gameboard extends Container {
 
     public async play(): Promise<void>{
         await this.awaitAllOpened();
+        await this.animateWinningSymbols();
+
+
 
         // show prizes
         // play sound
@@ -96,7 +100,9 @@ export class Gameboard extends Container {
     private async onSymbolPress( symbolIndex: number ): Promise<void>{
         this._symbolPool.splice(this._symbolPool.indexOf(symbolIndex), 1);
         const clickedSymbol = this._symbols[symbolIndex];
-        const symbolValue = ticketModel.prizeIndexes[symbolIndex];
+
+        const prizeIndex = ticketModel.currentScenario.prizeIndexes[symbolIndex]
+        const symbolValue = ticketModel.prizeTable[prizeIndex];
 
         await clickedSymbol.reveal(symbolValue);
         
@@ -110,5 +116,16 @@ export class Gameboard extends Container {
         return new Promise((resolve) => {
             this._playResolve = resolve;
         });
+    }
+
+    private async animateWinningSymbols(): Promise<void>{
+        const endSound = ticketModel.currentScenario.winner ? "endWin" : "endLose";
+        sound.play(endSound);
+
+        const proms = [];
+        for ( const winningIndex of ticketModel.currentScenario.winningIndexes ) {
+            proms.push(this._symbols[winningIndex].showGlow());
+        }
+        await Promise.all(proms);
     }
 }
