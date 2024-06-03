@@ -1,9 +1,10 @@
-import { Container, IPointData, Point, Sprite } from "pixi.js";
+import { BitmapText, Container, IPointData, Point, Sprite } from "pixi.js";
 import { ISizeRef } from "../types";
 import { getTexture } from "../asset-loader";
 import { sound } from "@pixi/sound";
 import { gameConfig } from "../config";
-import { asyncTween } from "../utils";
+import { asyncTween, formatCurrency } from "../utils";
+import { playerModel } from "../playerModel";
 
 export enum PlayerChoice {
     Play,
@@ -20,6 +21,7 @@ export class EndCard extends Container {
 
     private _btnPlay: Sprite;
     private _btnStake: Sprite;
+    private _prizeText: BitmapText;
 
     private _resolveChoice: (value: PlayerChoice) => void
 
@@ -28,11 +30,15 @@ export class EndCard extends Container {
     constructor( ){
         super();
 
-        const { size, backdropPos, playButtonPos, stakeButtonPos } = gameConfig.endCard;
+        const { size, backdropPos, playButtonPos, stakeButtonPos, prizeValueStyle, prizeValuePos, winMessagePos } = gameConfig.endCard;
 
         const backDrop = new Sprite(getTexture("panelEndMessage.png"));
         backDrop.anchor.set(0.5);
         backDrop.position.copyFrom(backdropPos);
+
+        const winMessage = new Sprite(getTexture("winMessage.png"));
+        winMessage.anchor.set(0.5);
+        winMessage.position.copyFrom(winMessagePos);
 
         this._btnPlay = new Sprite(getTexture("playButton.png"));
         this._btnPlay.anchor.set(0.5);
@@ -45,12 +51,17 @@ export class EndCard extends Container {
         this._btnStake.interactive = true;
         this._btnStake.position.copyFrom(stakeButtonPos);
         this._btnStake.on("pointerdown", () => this._handleChoice(PlayerChoice.ChangeStake) );
-        this.addChild(backDrop, this._btnPlay, this._btnStake);
+
+        this._prizeText = new BitmapText("$10", prizeValueStyle);
+        this._prizeText.anchor.set(0.5);
+        this._prizeText.position.copyFrom(prizeValuePos)
+
+        this.addChild(backDrop, this._btnPlay, this._btnStake, this._prizeText, winMessage);
         this.size = size;
     }
 
     public async displayWin( prize: number ): Promise<void>{
-        // update prize text
+        this._prizeText.text = formatCurrency(prize, playerModel.currencySettings);
 
         await this.setShown(true);
     }
@@ -64,7 +75,7 @@ export class EndCard extends Container {
     public async setShown( mode: boolean ): Promise<void>{
         this._isShown = mode;
 
-        const { showHideTweenProps } = gameConfig.cabinet;
+        const { showHideTweenProps } = gameConfig.endCard;
 
         const targetPos = this._isShown? this._onPos : this._offPos;
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
@@ -78,7 +89,6 @@ export class EndCard extends Container {
 
         this.scale.set(setScale);
 
-        const calculatedWidth = this.size.width * setScale
         this._onPos = new Point(
             width * 0.50,
             +height * 0.50 
@@ -93,7 +103,7 @@ export class EndCard extends Container {
     }
 
     private _handleChoice( choice: PlayerChoice ): void{
-        this._resolveChoice(choice);
+        this._resolveChoice && this._resolveChoice(choice);
         sound.play("click");
         this.setShown(false);
     }
