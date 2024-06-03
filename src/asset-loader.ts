@@ -16,11 +16,11 @@ const assetManifest = [
    { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
    { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"},
 
-    { name: "chestOpen", url: "audio/SND_Chest_Open.mp3"},
-    { name: "click", url: "audio/SND_Click.mp3"},
-    { name: "endWin", url: "audio/SND_End_Game_Win.mp3"},
-    { name: "endLose", url: "audio/SND_End_Game_Lose.mp3"},
-    { name: "winReveal", url: "audio/SND_Win_Revealed.mp3"}
+    { name: "chestOpen", url: "audio/SND_Chest_Open.{ogg, mp3}"},
+    { name: "click", url: "audio/SND_Click.{ogg, mp3}"},
+    { name: "endWin", url: "audio/SND_End_Game_Win.{ogg, mp3}"},
+    { name: "endLose", url: "audio/SND_End_Game_Lose.{ogg, mp3}"},
+    { name: "winReveal", url: "audio/SND_Win_Revealed.{ogg, mp3}"}
 ] as Array<IAssetDefinition>
 
 
@@ -88,9 +88,7 @@ export function loadAssets(): Promise<void>{
             else if ( resource.texture ) {
                 textureCache[resource.name] = resource.texture;
             }
-
-            console.log(resource)
-        } )
+        } );
 
         loader.load(() => resolve());
     });
