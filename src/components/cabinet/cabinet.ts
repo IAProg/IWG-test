@@ -92,17 +92,21 @@ export class Cabinet extends Container {
             width  / this.size.width,
             height / this.size.height
         )
-
         this.scale.set(setScale);
 
         const calculatedWidth = this.size.width * setScale
+
+        const xPort = width * 0.5;
+        const xLand = calculatedWidth * 0.50;
+        const xPos = width > height ? xLand : xPort;
+
         this._onPos = new Point(
-            calculatedWidth * 0.50,
+            xPos,
             +height * 0.50 
         );
 
         this._offPos = new Point(
-            calculatedWidth * 0.50,
+            xPos,
             -height * 0.50 
         );
 
