@@ -1,9 +1,10 @@
-import { Container, IPointData, Point, Sprite } from "pixi.js";
+import { Container, IPointData, Point, Sprite, Texture } from "pixi.js";
 import { ISizeRef } from "../types";
 import { getTexture } from "../asset-loader";
 import { sound } from "@pixi/sound";
 import { gameConfig } from "../config";
 import { asyncTween } from "../utils";
+import { Button } from "./button";
 
 
 /**
@@ -14,35 +15,32 @@ export class RevealAll extends Container {
     private _offPos: IPointData;
     private _isShown: boolean = false;
 
-    private _btnRevealAll: Sprite;
+    private _btnRevealAll: Button;
 
     private size: ISizeRef;
     
     constructor( revealAllCallback: () => void ){
         super();
 
-        const { size, backdropPos, revealAllButtonPos } = gameConfig.revealAll;
+        const { size, backdropPos, revealAllbutton } = gameConfig.revealAll;
 
         const backDrop = new Sprite(getTexture("panelRevealAll.png"));
         backDrop.anchor.set(0.5);
         backDrop.position.copyFrom(backdropPos);
 
-        this._btnRevealAll = new Sprite(getTexture("revealAllButton.png"));
-        this._btnRevealAll.anchor.set(0.5);
-        this._btnRevealAll.interactive = true;
-        this._btnRevealAll.position.copyFrom(revealAllButtonPos);
-        this._btnRevealAll.on("pointerdown", () => {
-            this._btnRevealAll.interactive = false;
+        this._btnRevealAll = new Button( revealAllbutton.textureConfig, () => {
+            this._btnRevealAll.setEnabled(false);
             sound.play("click");
             revealAllCallback();
         });
+        this._btnRevealAll.position.copyFrom(revealAllbutton.pos);
 
         this.addChild(backDrop, this._btnRevealAll);
         this.size = size;
     }
 
     public setEnabled( mode: boolean ){
-        this._btnRevealAll.interactive = mode;
+        this._btnRevealAll.setEnabled(mode)
     }
 
     public async setShown( mode: boolean ): Promise<void>{

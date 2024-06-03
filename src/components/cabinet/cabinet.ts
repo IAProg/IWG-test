@@ -3,7 +3,7 @@ import { getTexture } from "../../asset-loader";
 import { gameConfig } from "../../config";
 import { asyncTween, formatCurrency } from "../../utils";
 import { ISizeRef } from "../../types";
-import { Button } from "./button";
+import { Button } from "../button";
 import { playerModel } from "../../playerModel";
 import { Sound, sound } from "@pixi/sound";
 

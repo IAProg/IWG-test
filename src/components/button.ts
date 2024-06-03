@@ -1,6 +1,6 @@
 import { BLEND_MODES, Container, Sprite, Texture } from "pixi.js";
-import { getTexture, playSound } from "../../asset-loader";
-import { IButtonTextureConfig, ISizeRef } from "../../types";
+import { getTexture, playSound } from "../asset-loader";
+import { IButtonTextureConfig, ISizeRef } from "../types";
 
 
 /**
