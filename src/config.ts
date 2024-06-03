@@ -50,10 +50,13 @@ export const gameConfig = {
             x: 0,
             y: -25
         },
-        prizeValueStyle: {
-            fontName: "skranji-white-export",
-            align: "center"
-        } as Partial<IBitmapTextStyle>,
+        prizeValue:{
+            style: {
+                align: "center"
+            } as Partial<IBitmapTextStyle>,
+            winFont: "skranji-yellow-export" ,
+            defaultFont: "skranji-white-export"
+        },
         prizevaluePos: {
             x: 0,
             y: -50
@@ -117,10 +120,17 @@ export const gameConfig = {
             x: 0,
             y: -400
         },
-        revealAllButtonPos:{
-            x: -5,
-            y: -228
-        }
+        revealAllbutton:{
+            pos: {
+                x: -5,
+                y: -228
+            },
+            textureConfig: {
+                base: "revealAllButton.png",
+                enabled: "revealAllLight.png",
+                disabled: "revealAllDark.png"
+            } as IButtonTextureConfig
+        },
     },
     endCard: {
         size: {

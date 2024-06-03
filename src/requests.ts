@@ -2,11 +2,13 @@ import { IPlayerRequestPayload, ITicketResponse } from "./types";
 /**
  * An API call to request a game ticket
  * player payload would be used to send the players state (e.g stake) which could be used in generating a response
+ * The response data is spoofed by modifying the result before returning it - prize values multiplied by stake 
  */
 export async function requestTicketData( playerPayload: IPlayerRequestPayload ): Promise<ITicketResponse>{
     const response = await fetch("gameInfo.json");
     const data: ITicketResponse = await response.json(); 
     if ( response.status === 200 ){
+        data.prizeTable = data.prizeTable.map( prizeValue => prizeValue * playerPayload.stake );
         return data;
     }
     throw data;
