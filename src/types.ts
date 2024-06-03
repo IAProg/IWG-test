@@ -37,3 +37,7 @@ export interface ITicketResponse{
 	prizeTable: Array<number>,
 	scenarioData: Array<IScenarioData>
 }
+
+export interface IPlayerRequestPayload{
+    stake: number
+}
