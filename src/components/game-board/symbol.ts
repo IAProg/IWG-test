@@ -25,7 +25,7 @@ export class GameSymbol extends Container {
         super();
         this.id = id;
 
-        const { glowPos, prizeValueStyle, prizevaluePos} = gameConfig.symbol;
+        const { glowPos, prizeValue, prizevaluePos} = gameConfig.symbol;
 
         this._framesOpen = getAnimationFrames("chest");
         this._framesClose = getAnimationFrames("chest").reverse();
@@ -39,9 +39,13 @@ export class GameSymbol extends Container {
         this._glow.position.copyFrom(glowPos);
         this._glow.alpha = 0;
 
-        this._prizeValue = new BitmapText("", prizeValueStyle);
+        this._prizeValue = new BitmapText("", {
+            ...prizeValue.style,
+            fontName: prizeValue.defaultFont
+        });
         this._prizeValue.anchor.set(0.5);
         this._prizeValue.position.copyFrom(prizevaluePos);
+        this._prizeValue.alpha = 0;
 
         this.addChild(this._chestAnim, this._glow, this._prizeValue);
 
@@ -52,8 +56,12 @@ export class GameSymbol extends Container {
     }
 
     public async preconfigure( isFirstPurchase: boolean = false ): Promise<void>{
+        const { prizeValue } = gameConfig.symbol;
         asyncTween(this._prizeValue, { alpha: 0 });
-        !isFirstPurchase && this.playPromise( false );
+        if ( !isFirstPurchase ){
+            await this.playPromise( false );
+        }
+        this._prizeValue.fontName = prizeValue.defaultFont;
         this.interactive = true;
     }
 
@@ -68,6 +76,8 @@ export class GameSymbol extends Container {
     }
 
     public async showGlow(): Promise<void>{
+        const { prizeValue } = gameConfig.symbol;
+        this._prizeValue.fontName = prizeValue.winFont;
         await asyncTween(this._glow, { alpha: 1, duration: 1 });
         await delay(250);
         await asyncTween(this._glow, { alpha: 0, duration: 1  });
