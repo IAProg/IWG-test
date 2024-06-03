@@ -23,6 +23,8 @@ export class IWGApp extends Application {
     private _revealAll: RevealAll;
     private _endCard: EndCard;
 
+    private _firstPurchase: boolean = true;
+
     constructor(){
         super(gameConfig.canvas)
         this._background = new Background();
@@ -64,15 +66,16 @@ export class IWGApp extends Application {
 
         await this._cabinet.setShown(false);
         this._revealAll.setShown(true);
-
+        
         while( !ticketModel.gameComplete ){
-            await this._gameBoard.preconfigure();
+            await this._gameBoard.preconfigure( this._firstPurchase );
             this._revealAll.setEnabled(true);
             await this._gameBoard.play();
             await delay(1000);
             ticketModel.onScenarioComplete();
+            this._firstPurchase = false;
         }
-
+        
         this._revealAll.setShown(false);
         this._endCard.displayWin(ticketModel.totalWin);
 

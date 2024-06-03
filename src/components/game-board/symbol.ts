@@ -41,11 +41,9 @@ export class GameSymbol extends Container {
 
         this._prizeValue = new BitmapText("", prizeValueStyle);
         this._prizeValue.anchor.set(0.5);
-        this._prizeValue.position.copyFrom(prizevaluePos)
+        this._prizeValue.position.copyFrom(prizevaluePos);
 
         this.addChild(this._chestAnim, this._glow, this._prizeValue);
-
-        this._chestAnim.play();
 
         this.on("pointerdown", () => onClickCallback(this.id) );
 
@@ -53,9 +51,9 @@ export class GameSymbol extends Container {
         teaseTween.progress( Math.random() );
     }
 
-    public async preconfigure(  ): Promise<void>{
+    public async preconfigure( isFirstPurchase: boolean = false ): Promise<void>{
         asyncTween(this._prizeValue, { alpha: 0 });
-        this.playPromise( false );
+        !isFirstPurchase && this.playPromise( false );
         this.interactive = true;
     }
 
