@@ -4,7 +4,7 @@ import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
 import { sound } from "@pixi/sound";
 import gsap from "gsap";
-import { playerModel } from "../../playerModel";
+import { playerModel } from "../../player-model";
 
 export type SymbolClickCallback = (index: number) => Promise<void>;
 

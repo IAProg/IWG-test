@@ -1,13 +1,13 @@
 import { BitmapText, Container, Sprite } from "pixi.js";
 import { gameConfig } from "../../config";
-import { asyncTween, delay, formatCurrency } from "../../utils";
+import { formatCurrency } from "../../utils";
 import { getTexture } from "../../asset-loader";
 import { GameSymbol } from "./symbol";
 import { ISizeRef } from "../../types";
 import gsap from "gsap";
-import { ticketModel } from "../../ticket-model";
+import { gameModel } from "../../game-model";
 import { sound } from "@pixi/sound";
-import { playerModel } from "../../playerModel";
+import { playerModel } from "../../player-model";
 
 
 /**
@@ -52,7 +52,7 @@ export class Gameboard extends Container {
         this._winUpTo.anchor.set(0.5);
         this._winUpTo.position.copyFrom(winUpToPos);
 
-        const maxWinString = formatCurrency( ticketModel.maxWin, playerModel.currencySettings );
+        const maxWinString = formatCurrency( gameModel.maxWin, playerModel.currencySettings );
         this._maxPrizeText = new BitmapText(maxWinString, maxPrizeStyle);
         this._maxPrizeText.anchor.set(0.5);
         this._maxPrizeText.position.copyFrom(maxPrizePos);
@@ -127,8 +127,8 @@ export class Gameboard extends Container {
         this._symbolPool.splice(this._symbolPool.indexOf(symbolIndex), 1);
         const clickedSymbol = this._symbols[symbolIndex];
 
-        const prizeIndex = ticketModel.currentScenario.prizeIndexes[symbolIndex]
-        const symbolValue = ticketModel.prizeTable[prizeIndex];
+        const prizeIndex = gameModel.currentScenario.prizeIndexes[symbolIndex]
+        const symbolValue = gameModel.prizeTable[prizeIndex];
 
         await clickedSymbol.reveal(symbolValue);
         
@@ -152,11 +152,11 @@ export class Gameboard extends Container {
      * returns a promise which resolves when glow animations complete
      */
     private async animateWinningSymbols(): Promise<void>{
-        const endSound = ticketModel.currentScenario.winner ? "endWin" : "endLose";
+        const endSound = gameModel.currentScenario.winner ? "endWin" : "endLose";
         sound.play(endSound);
 
         const proms = [];
-        for ( const winningIndex of ticketModel.currentScenario.winningIndexes ) {
+        for ( const winningIndex of gameModel.currentScenario.winningIndexes ) {
             proms.push(this._symbols[winningIndex].showGlow());
         }
         await Promise.all(proms);

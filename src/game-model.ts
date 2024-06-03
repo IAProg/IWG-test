@@ -3,12 +3,17 @@ import { IScenarioData, ITicketResponse } from "./types";
 /**
  * Stores and formats game data recieved from a game server to the client. 
  */
-class TicketModel{
+class GameModel{
     private _scenarios: Array<IScenarioData> = [];
     private _prizeTable: Array<number>;
     private _totalWin: number = 0;
     private _maxWin: number;
 
+
+    /**
+     * shift the current scenario out
+     * called when game has displayed screnario
+     */
     public onScenarioComplete(): void{
         this._scenarios.shift();
     }
@@ -37,6 +42,10 @@ class TicketModel{
         return this._maxWin;
     }
 
+    /**
+     * process and store response from server
+     * @param responseData - response data from server
+     */
     public setData(responseData: ITicketResponse): void{
         this._scenarios = responseData.scenarioData;
         this._prizeTable = responseData.prizeTable;
@@ -61,4 +70,4 @@ class TicketModel{
 
 }
 
-export const ticketModel = new TicketModel();
+export const gameModel = new GameModel();

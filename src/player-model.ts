@@ -1,10 +1,18 @@
 import { ICurrencySettings, IPlayerRequestPayload, ITicketResponse } from "./types";
 
+/**
+ * Stores and formats player data recieved from a game server to the client. 
+ * Handles stake and currency settings
+ */
 class PlayerModel {
     private _stakeIndex: number = 0; 
     private _stakes: Array<number>;
     private _currencySettings: ICurrencySettings;
 
+    /**
+     * process and store response from server
+     * @param data - response data from server
+     */
     public init( data: ITicketResponse ): void{
         this._currencySettings = {
             currency: data.currency,

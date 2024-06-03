@@ -4,10 +4,10 @@ import { Background } from "./components/background";
 import { Gameboard } from "./components/game-board";
 import { Foreground } from "./components/foreground";
 import { requestTicketData } from "./requests";
-import { ticketModel } from "./ticket-model";
+import { gameModel } from "./game-model";
 import { delay } from "./utils";
 import { EndCard, PlayerChoice } from "./components/end-card";
-import { playerModel } from "./playerModel";
+import { playerModel } from "./player-model";
 import { Cabinet } from "./components/cabinet";
 import { RevealAll } from "./components/reveal-all";
 
@@ -45,13 +45,16 @@ export class IWGApp extends Application {
         this.scaleContent(this.screen.width, this.screen.height);
     }
 
+    /**
+     * play the intro sequence
+     */
     public async playIntro(): Promise<void>{
         await this._cabinet.setShown(true)
     }
 
     /**
-     * While not demonstrated in this demo the components are constructed to support multiple aspect ratios
-    */
+     * call resize handler on game components 
+     */
     public scaleContent(width: number, height: number): void{
         this._background.resize(width, height);
         this._gameBoard.resize(width, height);
@@ -61,25 +64,28 @@ export class IWGApp extends Application {
         this._endCard.resize(width, height);
     }
 
-    // the main gameloop
+    /**
+     * main game loop
+     * plays through all scenarios in game model and then shows end game options
+    */
     private async play(): Promise<void>{
-        ticketModel.setData(await requestTicketData(playerModel.requestPayload));
+        gameModel.setData(await requestTicketData(playerModel.requestPayload));
 
         await this._cabinet.setShown(false);
         this._revealAll.setShown(true);
         
-        while( !ticketModel.gameComplete ){
+        while( !gameModel.gameComplete ){
             await this._gameBoard.preconfigure( this._firstPurchase );
             this._revealAll.setEnabled(true);
             await this._gameBoard.play();
             await delay(1000);
-            ticketModel.onScenarioComplete();
+            gameModel.onScenarioComplete();
             this._firstPurchase = false;
         }
         
         this._revealAll.setShown(false);
         
-        const choice = await this._endCard.display(ticketModel.totalWin);
+        const choice = await this._endCard.display(gameModel.totalWin);
         if ( choice === PlayerChoice.Play ) {
             this.play();
         } else {

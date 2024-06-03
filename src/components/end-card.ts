@@ -4,7 +4,7 @@ import { getTexture } from "../asset-loader";
 import { sound } from "@pixi/sound";
 import { gameConfig } from "../config";
 import { asyncTween, formatCurrency } from "../utils";
-import { playerModel } from "../playerModel";
+import { playerModel } from "../player-model";
 
 export enum PlayerChoice {
     Play,

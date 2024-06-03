@@ -4,11 +4,12 @@ import { gameConfig } from "../config";
 import { asyncTween, formatCurrency } from "../utils";
 import { ISizeRef } from "../types";
 import { Button } from "./button";
-import { playerModel } from "../playerModel";
+import { playerModel } from "../player-model";
 import { Sound, sound } from "@pixi/sound";
 
 /**
- * The game board represents the playable surface of the game. It is responsible for controlling child components and telling the application when play has ended
+ * Cabinet container
+ * displays stake controls and play button
  */
 export class Cabinet extends Container {
     private _onPos: IPointData;
