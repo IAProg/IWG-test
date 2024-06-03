@@ -1,5 +1,5 @@
 import { BLEND_MODES, Container, Sprite, Texture } from "pixi.js";
-import { getTexture } from "../../asset-loader";
+import { getTexture, playSound } from "../../asset-loader";
 import { IButtonTextureConfig, ISizeRef } from "../../types";
 
 
@@ -27,12 +27,14 @@ export class Button extends Container {
         this._disabledCover.anchor.set(0.5);
         this._disabledCover.blendMode = BLEND_MODES.MULTIPLY;
         this._disabledCover.alpha = 0.50;
-
+        
         this.addChild(this._baseSprite, this._enabledCover, this._disabledCover );
 
         this.setEnabled(initEnabled);
 
-        this.on("pointerdown", callback );
+        this.on("pointerdown", () => {
+            callback();
+        } );
     }
 
     public setEnabled( isEnabled: boolean ): void{

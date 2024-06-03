@@ -5,7 +5,7 @@ import { sound } from "@pixi/sound";
 const assetManifest = [
    { name: "background", url: "textures/background.png"},
    { name: "logo", url: "textures/logo.png"},
-   
+
    { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
    { name: "language", url: "spritesheets/language.json"},
    { name: "chest", url: "spritesheets/chest.json"},
@@ -16,7 +16,11 @@ const assetManifest = [
    { name: "skranji-interface-export", url: "fonts/skranji-interface-export.xml"},
    { name: "skranji-white-interface-export", url: "fonts/skranji-white-interface-export.xml"},
 
-    { name: "test", url: "audio/SND_Chest_Open.mp3"}
+    { name: "chestOpen", url: "audio/SND_Chest_Open.mp3"},
+    { name: "click", url: "audio/SND_Click.mp3"},
+    { name: "endWin", url: "audio/SND_End_Game_Win.mp3"},
+    { name: "endLose", url: "audio/SND_End_Game_Lose.mp3"},
+    { name: "winReveal", url: "audio/SND_Win_Revealed.mp3"}
 ] as Array<IAssetDefinition>
 
 

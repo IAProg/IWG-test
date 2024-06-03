@@ -5,6 +5,7 @@ import { asyncTween, delay, formatCurrency } from "../../utils";
 import { getAnimationFrames, getTexture } from "../../asset-loader";
 import gsap from "gsap";
 import { ISizeRef } from "../../types";
+import { sound } from "@pixi/sound";
 
 export type SymbolClickCallback = (index: number) => Promise<void>;
 
@@ -70,6 +71,7 @@ export class GameSymbol extends Container {
 
     private playPromise(): Promise<void>{
         return new Promise( resolve => {
+            sound.play("chestOpen");
             this._chestAnim.onComplete = resolve;
             this._chestAnim.gotoAndPlay(0);
         })

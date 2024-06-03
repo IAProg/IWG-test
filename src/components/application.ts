@@ -48,6 +48,8 @@ export class IWGApp extends Application {
     // the main gameloop
     private async play(): Promise<void>{
         await this._cabinet.setShown(false);
+        this._gameBoard.preconfigure();
+        this._gameBoard.play();
         return;
     }
 }
