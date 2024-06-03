@@ -32,6 +32,7 @@ export class RevealAll extends Container {
         this._btnRevealAll.interactive = true;
         this._btnRevealAll.position.copyFrom(revealAllButtonPos);
         this._btnRevealAll.on("pointerdown", () => {
+            this._btnRevealAll.interactive = false;
             sound.play("click");
             revealAllCallback();
         });
@@ -40,11 +41,14 @@ export class RevealAll extends Container {
         this.size = size;
     }
 
+    public setEnabled( mode: boolean ){
+        this._btnRevealAll.interactive = mode;
+    }
+
     public async setShown( mode: boolean ): Promise<void>{
         this._isShown = mode;
 
-        const { showHideTweenProps } = gameConfig.cabinet;
-
+        const { showHideTweenProps } = gameConfig.revealAll;
         const targetPos = this._isShown? this._onPos : this._offPos;
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
     }

@@ -9,6 +9,7 @@ import { ticketModel } from "../ticket-model";
 import { delay } from "../utils";
 import { RevealAll } from "./reveal-all";
 import { EndCard, PlayerChoice } from "./end-card";
+import { playerModel } from "../playerModel";
 
 /**
  * The core of the application. 
@@ -59,19 +60,21 @@ export class IWGApp extends Application {
 
     // the main gameloop
     private async play(): Promise<void>{
-        ticketModel.setData(await requestTicketData());
+        ticketModel.setData(await requestTicketData(playerModel.requestPayload));
+
         await this._cabinet.setShown(false);
         this._revealAll.setShown(true);
 
         while( !ticketModel.gameComplete ){
             await this._gameBoard.preconfigure();
+            this._revealAll.setEnabled(true);
             await this._gameBoard.play();
             await delay(1000);
             ticketModel.onScenarioComplete();
         }
 
         this._revealAll.setShown(false);
-        this._endCard.displayWin(10);
+        this._endCard.displayWin(ticketModel.totalWin);
 
         const choice = await this._endCard.awaitPlayerChoice();
         if ( choice === PlayerChoice.Play ) {
