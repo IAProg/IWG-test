@@ -17,6 +17,7 @@ export const gameConfig = {
     } as IApplicationOptions,
     gameboard:{
         padding: 1.00,
+        scratchAllDelay: 0.5,
         logoPos: { x: 0, y: -175 },
         ripple: {
             pos: { x: 0, y: 130 },
@@ -102,6 +103,9 @@ export const gameConfig = {
             width: 400,
             height: 842
         },
+        showHideTweenProps: {
+            duration: 1
+        },
         backdropPos:{
             x: 0,
             y: -400
@@ -116,6 +120,9 @@ export const gameConfig = {
             width: 400,
             height: 842
         },
+        showHideTweenProps: {
+            duration: 1
+        },
         backdropPos:{
             x: 0,
             y: -400
@@ -127,11 +134,27 @@ export const gameConfig = {
         stakeButtonPos:{
             x: +125,
             y: -190
-        }
+        },
+        prizeValuePos:{
+            x: 0,
+            y: -267
+        },
+        winMessagePos:{
+            x: 0,
+            y: -240
+        },
+        prizeValueStyle: {
+            fontName: "worksans-orange-export",
+            align: "center"
+        } as Partial<IBitmapTextStyle>,
     },
     foreground: {
-        treeSpacing: 800,
-        treeTween: { rotation: +0.05, repeat: -1, yoyo: true, duration: 5, ease: "power1.inOut" }
+        treeSpacing: 600,
+        treeTween: { rotation: +0.05, repeat: -1, yoyo: true, duration: 5, ease: "power1.inOut" },
+        size: {
+            width: 1000,
+            height: 200
+        }
     }
 }
 
