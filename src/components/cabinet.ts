@@ -107,7 +107,7 @@ export class Cabinet extends Container {
         );
         this.scale.set(setScale);
 
-        const calculatedWidth = this.size.width * setScale
+        const calculatedWidth = this.size.width * setScale;
 
         const xPort = width * 0.5;
         const xLand = calculatedWidth * 0.50;
