@@ -16,7 +16,6 @@ export class Foreground extends Container {
     
     constructor(){
         super();
-
         const { treeSpacing, treeTween, size } = gameConfig.foreground;
 
         this._instructions = new Sprite(getTexture("instructionGame01.png"));

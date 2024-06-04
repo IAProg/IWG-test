@@ -38,9 +38,12 @@ export class IWGApp extends Application {
 
         this.stage.addChild(this._background, this._revealAll, this._gameBoard, this._foreground, this._cabinet, this._revealAll, this._endCard);
 
-        window.addEventListener("resize", () => {
-            this.scaleContent(this.screen.width, this.screen.height);
-        });
+        // handle resize - wait for frame so we resize after renderer
+        window.addEventListener("resize", () => 
+            requestAnimationFrame(() => {
+                this.scaleContent(this.screen.width, this.screen.height);
+            })
+        );
 
         this.scaleContent(this.screen.width, this.screen.height);
     }

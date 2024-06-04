@@ -32,7 +32,6 @@ export class EndCard extends Container {
     
     constructor( ){
         super();
-
         const { size, backdropPos, playButtonPos, stakeButtonPos, prizeValue, winMessagePos } = gameConfig.endCard;
 
         this._backDrop = new Sprite(getTexture("panelEndMessage.png"));
