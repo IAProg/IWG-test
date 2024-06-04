@@ -26,13 +26,13 @@ export class Cabinet extends Container {
     private _stakeText: BitmapText;
     private _btnPlus: Button;
     private _btnMinus: Button;
-    private _btnPlay: Sprite;
+    private _btnPlay: Button;
 
     private size: ISizeRef;
     
     constructor( playCallback: () => void ){
         super();
-        const { size, topPanelPos, botPanelPos, setBetPos, plusButton, minusButton, stakeTextStyle, staketextPos, playPos} = gameConfig.cabinet;
+        const { size, topPanelPos, botPanelPos, setBetPos, plusButton, minusButton, stakeTextStyle, staketextPos, playPos, playButton} = gameConfig.cabinet;
 
         this._panelTop = new Sprite(getTexture("panelVS1.png"));
         this._panelTop.anchor.set(0.5);
@@ -67,14 +67,12 @@ export class Cabinet extends Container {
         this._stakeText.anchor.set(0.5);
         this._stakeText.position.copyFrom(staketextPos);
 
-        this._btnPlay = new Sprite(getTexture("playButton.png"));
-        this._btnPlay.anchor.set(0.5);
-        this._btnPlay.position.copyFrom(playPos);
-        this._btnPlay.interactive = true;
-        this._btnPlay.on("pointerdown", () => {
+        this._btnPlay = new Button( playButton.textureConfig, () => {
+            this._btnPlay.setEnabled(false);
             sound.play("click");
             playCallback();
         });
+        this._btnPlay.position.copyFrom(playButton.pos);
 
         this.addChild(this._panelTop, this._panelMid, this._panelBot, this._setBet, this._btnPlus, this._btnMinus, this._stakeText, this._btnPlay);
 
@@ -88,10 +86,10 @@ export class Cabinet extends Container {
      * @param mode - flag for show or hide
      */
     public async setShown( mode: boolean ): Promise<void>{
+        this._btnPlay.setEnabled(mode);
         this._isShown = mode;
 
         const { showHideTweenProps } = gameConfig.cabinet;
-
         const targetPos = this._isShown? this._onPos : this._offPos;
         await asyncTween(this, { x: targetPos.x, y: targetPos.y, ...showHideTweenProps });
     }

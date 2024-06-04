@@ -92,6 +92,17 @@ export const gameConfig = {
                 disabled: "minusShadow.png"
             } as IButtonTextureConfig
         },
+        playButton: {
+            pos: {
+                x: 0,
+                y: 175
+            },
+            textureConfig: {
+                base: "playButton.png",
+                enabled: "buttonCoverLight.png",
+                disabled: "buttonCoverDark.png"
+            } as IButtonTextureConfig
+        },
         playPos: {
             x: 0,
             y: 175
@@ -136,8 +147,8 @@ export const gameConfig = {
             },
             textureConfig: {
                 base: "revealAllButton.png",
-                enabled: "revealAllLight.png",
-                disabled: "revealAllDark.png"
+                enabled: "buttonCoverLight.png",
+                disabled: "buttonCoverDark.png"
             } as IButtonTextureConfig
         },
     },
@@ -153,13 +164,27 @@ export const gameConfig = {
             x: 0,
             y: -400
         },
-        playButtonPos:{
-            x: -125,
-            y: -190
+        playButton: {
+            pos: {
+                x: -125,
+                y: -190
+            },
+            textureConfig: {
+                base: "playButton.png",
+                enabled: "buttonCoverLight.png",
+                disabled: "buttonCoverDark.png"
+            } as IButtonTextureConfig
         },
-        stakeButtonPos:{
-            x: +125,
-            y: -190
+        stakeButton: {
+            pos: {
+                x: +125,
+                y: -190
+            },
+            textureConfig: {
+                base: "playButton.png",
+                enabled: "buttonCoverLight.png",
+                disabled: "buttonCoverDark.png"
+            } as IButtonTextureConfig
         },
         prizeValue:{
             pos: {

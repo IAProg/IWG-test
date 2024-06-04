@@ -8,8 +8,8 @@ import { sound } from "@pixi/sound";
 const assetManifest = [
     { name: "background.png", url: "textures/background.png"},
     { name: "logo.png", url: "textures/logo.png"},
-    { name: "revealAllLight.png", url: "textures/revealAllLight.png"},
-    { name: "revealAllDark.png", url: "textures/revealAllDark.png"},
+    { name: "buttonCoverLight.png", url: "textures/buttonCoverLight.png"},
+    { name: "buttonCoverDark.png", url: "textures/buttonCoverDark.png"},
 
     { name: "backgroundElements", url: "spritesheets/backgroundElements.json"},
     { name: "language", url: "spritesheets/language.json"},
