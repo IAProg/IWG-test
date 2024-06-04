@@ -32,7 +32,6 @@ export class IWGApp extends Application {
         this._gameBoard = new Gameboard();
         this._foreground = new Foreground();
         this._cabinet = new Cabinet( this.play.bind(this) );
-
         this._revealAll = new RevealAll(() => this._gameBoard.revealAll());
         this._endCard = new EndCard();
 

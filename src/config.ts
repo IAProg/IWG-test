@@ -181,7 +181,7 @@ export const gameConfig = {
                 y: -190
             },
             textureConfig: {
-                base: "playButton.png",
+                base: "changeBetButton.png",
                 enabled: "buttonCoverLight.png",
                 disabled: "buttonCoverDark.png"
             } as IButtonTextureConfig
