@@ -18,6 +18,11 @@ export class Cabinet extends Container {
     private _offPos: IPointData;
     private _isShown: boolean = true;
 
+    private _panelTop: Sprite;
+    private _panelMid: Sprite;
+    private _panelBot: Sprite;
+    private _setBet: Sprite;
+
     private _stakeText: BitmapText;
     private _btnPlus: Button;
     private _btnMinus: Button;
@@ -27,22 +32,22 @@ export class Cabinet extends Container {
     
     constructor( playCallback: () => void ){
         super();
-        const { size, topPanelY, botPanelY, setBetY, plusButton, minusButton, stakeTextStyle, staketextPos, playPos} = gameConfig.cabinet;
+        const { size, topPanelPos, botPanelPos, setBetPos, plusButton, minusButton, stakeTextStyle, staketextPos, playPos} = gameConfig.cabinet;
 
-        const panelTop = new Sprite(getTexture("panelVS1.png"));
-        panelTop.anchor.set(0.5);
-        panelTop.y = topPanelY;
+        this._panelTop = new Sprite(getTexture("panelVS1.png"));
+        this._panelTop.anchor.set(0.5);
+        this._panelTop.position.copyFrom(topPanelPos);
 
-        const panelMid = new Sprite(getTexture("panelVS2.png"));
-        panelMid.anchor.set(0.5);
+        this._panelMid = new Sprite(getTexture("panelVS2.png"));
+        this._panelMid.anchor.set(0.5);
 
-        const panelBottom = new Sprite(getTexture("panelVS3.png"));
-        panelBottom.anchor.set(0.5);
-        panelBottom.y += botPanelY;
+        this._panelBot = new Sprite(getTexture("panelVS3.png"));
+        this._panelBot.anchor.set(0.5);
+        this._panelBot.position.copyFrom(botPanelPos);
 
-        const setBet = new Sprite(getTexture("chooseBet.png"))
-        setBet.anchor.set(0.5)
-        setBet.y = setBetY;
+        this._setBet = new Sprite(getTexture("chooseBet.png"))
+        this._setBet.anchor.set(0.5)
+        this._setBet.position.copyFrom(setBetPos);
 
         this._btnPlus = new Button( plusButton.textureConfig , () => { 
             playerModel.incrementStake();
@@ -71,7 +76,7 @@ export class Cabinet extends Container {
             playCallback();
         });
 
-        this.addChild(panelTop, panelMid, panelBottom, setBet, this._btnPlus, this._btnMinus, this._stakeText, this._btnPlay);
+        this.addChild(this._panelTop, this._panelMid, this._panelBot, this._setBet, this._btnPlus, this._btnMinus, this._stakeText, this._btnPlay);
 
         this.size = size;
 

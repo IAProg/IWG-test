@@ -104,9 +104,18 @@ export const gameConfig = {
             x: 0,
             y: -50
         },
-        topPanelY: -365,
-        botPanelY: 175,
-        setBetY: -180
+        topPanelPos: {
+            x: 0,
+            y: -365
+        },
+        botPanelPos: {
+            x: 0,
+            y: 175
+        },
+        setBetPos: {
+            x: 0,
+            y: -180
+        }
     },
     revealAll: {
         size: {
